@@ -4,5 +4,10 @@
  "sha256": "9004defae936ba01d1c2c58a38a2a6209d8e65628ce7d55d2ce185a38991c832",
  "notes": "Geen 'pagina vertalen' meer, volledig scherm als app, afsluitknop",
  "launcher": "1.0.3",
- "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/"
+ "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
+ "app": "1.0.0",
+ "appUrl": "https://github.com/liamdej0ng/rotterdam7/releases/download/v1.0.0/Rotterdam-VII-Setup-1.0.0.exe",
+ "i18n": "https://liamdej0ng.github.io/rotterdam7/dict.json",
+ "i18nVersion": "1.0.0",
+ "i18nSha256": "f3ff3091423f2f6ad83aeac89f8b1f84d86d4bc52ee4e314c281b6b560addc96"
 }

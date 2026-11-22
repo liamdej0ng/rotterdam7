@@ -4,9 +4,23 @@
 .c{text-align:center;padding:30px;max-width:640px}.logo{font:900 clamp(54px,12vw,96px)/.9 Impact,"Arial Black",sans-serif;text-shadow:4px 4px 0 #000}.logo span{display:block;color:#c8102e;font-size:1.3em;text-shadow:3px 3px 0 #fff}
 a.dl{display:inline-block;margin:28px 0 10px;padding:18px 34px;border-radius:12px;background:linear-gradient(#ffd23a,#f0a81a);color:#151008;font:900 22px "Arial Black",system-ui;text-decoration:none;letter-spacing:.06em}
 a.dc{display:inline-block;margin-top:8px;padding:10px 20px;border-radius:10px;background:#5865f2;color:#fff;text-decoration:none;font-weight:700}
-p{opacity:.85;line-height:1.5}small{opacity:.6}</style></head><body><div class="bg"></div><div class="c">
+.langs{position:fixed;top:14px;right:16px;display:flex;gap:6px}.langs button{background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 9px;font:700 12px system-ui;cursor:pointer}.langs button.on{background:#ffd23a;color:#111}
+p{opacity:.85;line-height:1.5}small{opacity:.6}</style></head><body><div class="bg"></div>
+<div class="langs"><button data-l="nl">NL</button><button data-l="en">EN</button><button data-l="de">DE</button></div>
+<div class="c">
 <div class="logo">ROTTERDAM<span>VII</span></div>
-<a class="dl" href="Rotterdam-VII.exe" download>⬇ DOWNLOAD VOOR WINDOWS</a><br><small id="v"></small>
-<p>Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>.<br>Updates komen daarna vanzelf binnen.</p>
+<a class="dl" id="dl" href="https://github.com/liamdej0ng/rotterdam7/releases/latest"></a><br><small id="v"></small>
+<p id="how"></p><p id="feat"></p>
 <a class="dc" href="https://discord.gg/GXM3Mb2TNp">💬 Discord</a></div>
-<script>fetch('update.json').then(r=>r.json()).then(u=>document.getElementById('v').textContent='Versie '+u.version).catch(()=>{});</script></body></html>
+<script>
+const T={
+ nl:{dl:'⬇ DOWNLOAD VOOR WINDOWS',v:'Versie ',how:'Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>.<br>Rotterdam VII installeert zichzelf en zet een snelkoppeling op je bureaublad. Updates komen daarna vanzelf binnen.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch'},
+ en:{dl:'⬇ DOWNLOAD FOR WINDOWS',v:'Version ',how:'Double-click the file. Get a blue warning? Click <b>More info</b> → <b>Run anyway</b>.<br>Rotterdam VII installs itself and puts a shortcut on your desktop. Updates arrive automatically after that.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch'},
+ de:{dl:'⬇ DOWNLOAD FÜR WINDOWS',v:'Version ',how:'Doppelklicke auf die Datei. Kommt eine blaue Warnung? Klick auf <b>Weitere Informationen</b> → <b>Trotzdem ausführen</b>.<br>Rotterdam VII installiert sich selbst und legt eine Verknüpfung auf deinem Desktop an. Updates kommen danach automatisch.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch'}};
+let L=(localStorage.getItem('r7lang')||navigator.language||'nl').slice(0,2);if(!T[L])L='en';let ver='';
+function show(){const t=T[L];document.documentElement.lang=L;document.getElementById('dl').textContent=t.dl;document.getElementById('how').innerHTML=t.how;document.getElementById('feat').textContent=t.feat;document.getElementById('v').textContent=ver?t.v+ver:'';
+ document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));}
+document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>{L=b.dataset.l;try{localStorage.setItem('r7lang',L)}catch(e){}show();});
+show();
+fetch('update.json',{cache:'no-store'}).then(r=>r.json()).then(u=>{if(u.app){ver=u.app;document.getElementById('dl').href=u.appUrl||('https://github.com/liamdej0ng/rotterdam7/releases/download/v'+u.app+'/Rotterdam-VII-Setup-'+u.app+'.exe');}show();}).catch(()=>{});
+</script></body></html>

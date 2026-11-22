@@ -1,0 +1,6 @@
+node_modules/
+dist/
+app/game.html
+app/poster.jpg
+app/favicon.png
+app/three.min.js

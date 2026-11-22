@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>Rotterdam VII – Downloads</title><link rel="icon" href="favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#07050b;color:#fff;font:500 16px system-ui,Segoe UI,sans-serif;display:flex;align-items:center;justify-content:center}
+.bg{position:fixed;inset:-30px;background:url(poster.jpg) center/cover;filter:blur(14px) brightness(.3);z-index:-1}
+.c{width:min(560px,92vw);background:rgba(14,10,20,.86);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:26px}
+h1{margin:0 0 4px;font:900 28px Impact,"Arial Black",sans-serif;letter-spacing:1px}h1 span{color:#c8102e}
+.big{font:900 64px/1 "Arial Black",system-ui;color:#ffd23a;margin:18px 0 4px}.sub{opacity:.65}
+table{width:100%;border-collapse:collapse;margin-top:20px}td,th{padding:9px 6px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}th{font-size:12px;letter-spacing:.12em;color:#ffd23a}td.n{text-align:right;font-weight:800}
+small{display:block;margin-top:14px;opacity:.5}.err{color:#ff7a7a}</style></head><body><div class="bg"></div>
+<div class="c"><h1>ROTTERDAM <span>VII</span> · DOWNLOADS</h1>
+<div class="big" id="tot">…</div><div class="sub">keer de installer gedownload (alle versies)</div>
+<table><thead><tr><th>VERSIE</th><th>DATUM</th><th style="text-align:right">DOWNLOADS</th></tr></thead><tbody id="rows"></tbody></table>
+<small id="note">Telt elke download van de installer via GitHub Releases. Automatische updates tellen niet mee als nieuwe download. Ververst elke minuut.</small></div>
+<script>
+async function load(){
+  try{
+    const r=await fetch('https://api.github.com/repos/liamdej0ng/rotterdam7/releases?per_page=100',{cache:'no-store'});
+    if(!r.ok)throw new Error(r.status===403?'GitHub-limiet bereikt, probeer het over een uur opnieuw.':'GitHub gaf fout '+r.status);
+    const rel=await r.json();let tot=0;const rows=[];
+    for(const x of rel){if(x.draft)continue;const n=x.assets.filter(a=>/\.exe$/i.test(a.name)).reduce((s,a)=>s+a.download_count,0);tot+=n;
+      rows.push('<tr><td>'+x.tag_name.replace(/[<>&]/g,'')+'</td><td>'+new Date(x.published_at).toLocaleDateString('nl-NL')+'</td><td class="n">'+n.toLocaleString('nl-NL')+'</td></tr>');}
+    document.getElementById('tot').textContent=tot.toLocaleString('nl-NL');
+    document.getElementById('rows').innerHTML=rows.join('')||'<tr><td colspan="3">Nog geen releases.</td></tr>';
+  }catch(e){document.getElementById('tot').textContent='–';document.getElementById('note').innerHTML='<span class="err">'+String(e.message||e).replace(/[<>&]/g,'')+'</span>';}
+}
+load();setInterval(load,60000);
+</script></body></html>

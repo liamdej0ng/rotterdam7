@@ -1,0 +1,74 @@
+{
+  "name": "rotterdam7",
+  "productName": "Rotterdam VII",
+  "version": "1.0.0",
+  "gameVersion": "1.0.3",
+  "dictVersion": "1.0.0",
+  "description": "Rotterdam VII",
+  "author": "Liam de Jong",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64 --publish never"
+  },
+  "dependencies": {
+    "electron-updater": "6.8.11",
+    "three": "0.128.0"
+  },
+  "devDependencies": {
+    "electron": "38.8.6",
+    "electron-builder": "26.18.0",
+    "resedit": "3.1.1"
+  },
+  "build": {
+    "appId": "nl.liamdejong.rotterdam7",
+    "productName": "Rotterdam VII",
+    "copyright": "© Alle rechten voorbehouden",
+    "files": [
+      "main.js",
+      "i18n-boot.js",
+      "package.json",
+      "app/**/*"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "Rotterdam-VII-Setup-${version}.${ext}",
+      "executableName": "Rotterdam VII"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Rotterdam VII",
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "runAfterFinish": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "liamdej0ng",
+        "repo": "rotterdam7",
+        "releaseType": "release"
+      }
+    ]
+  }
+}

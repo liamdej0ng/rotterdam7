@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl" translate="no" class="notranslate"><head><meta charset="utf-8"><meta name="google" content="notranslate"><title>Rotterdam VII</title><link rel="icon" href="/favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#07050b;color:#fff;font:500 15px system-ui,Segoe UI,sans-serif;user-select:none}
+.bg{position:fixed;inset:-30px;background:url(/poster.jpg) center/cover;filter:blur(14px) brightness(.45) saturate(1.2);transform:scale(1.05)}
+.shade{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(200,16,46,.25),transparent 60%),linear-gradient(90deg,rgba(5,3,8,.92) 0%,rgba(5,3,8,.55) 55%,rgba(5,3,8,.85) 100%)}
+.wrap{position:relative;height:100%;display:grid;grid-template-columns:minmax(340px,1fr) minmax(360px,520px);gap:4vw;padding:5vh 5vw}
+.logo{font:900 clamp(56px,7vw,104px)/.88 Impact,"Arial Black",sans-serif;letter-spacing:2px;text-shadow:4px 4px 0 #000}.logo span{color:#c8102e;display:block;font-size:1.3em;text-shadow:3px 3px 0 #fff,-2px -2px 0 #fff}
+.ver{opacity:.5;font-size:12px;margin-top:8px;letter-spacing:.2em}
+.left{display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.news{background:rgba(15,10,22,.7);border-left:4px solid #ffd23a;padding:16px 20px;border-radius:8px;max-width:560px}.news h3{margin:0 0 8px;color:#ffd23a;letter-spacing:.12em;font-size:13px}.news li{margin:4px 0;opacity:.9}
+.panel{background:rgba(14,10,20,.86);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;min-height:0;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+h2{margin:0;font:800 13px system-ui;letter-spacing:.2em;color:#ffd23a}
+.profiles{display:flex;flex-direction:column;gap:8px}
+.prof{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:2px solid transparent;cursor:pointer;transition:.15s}
+.prof:hover{background:rgba(255,255,255,.1)}.prof.sel{border-color:#ffd23a;background:rgba(255,210,58,.12)}
+.av{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:900 20px "Arial Black";color:#111;flex:none}
+.av.barry{background:#f5862a}.av.bella{background:#ff6fb5}
+.pn{flex:1;min-width:0}.pn b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pn small{opacity:.6}
+.del{background:none;border:0;color:#fff;opacity:.35;font-size:18px;cursor:pointer;padding:4px 8px}.del:hover{opacity:1;color:#ff5a5f}
+.new{display:flex;gap:8px;flex-wrap:wrap}.new input{flex:1;min-width:140px;padding:11px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.4);color:#fff;font:600 15px system-ui;outline:none}.new input:focus{border-color:#ffd23a}
+.chars{display:flex;gap:6px}.chars button{padding:8px 12px;border-radius:8px;border:2px solid transparent;background:rgba(255,255,255,.07);color:#fff;font:700 13px system-ui;cursor:pointer}.chars button.on{border-color:#ffd23a}
+.btn{padding:11px 16px;border-radius:8px;border:0;background:rgba(255,255,255,.12);color:#fff;font:700 14px system-ui;cursor:pointer}.btn:hover{background:rgba(255,255,255,.2)}
+.play{padding:18px;border-radius:12px;border:0;background:linear-gradient(180deg,#ffd23a,#f0a81a);color:#151008;font:900 26px "Arial Black",system-ui;letter-spacing:.12em;cursor:pointer;box-shadow:0 8px 30px rgba(255,190,40,.35);transition:.15s}
+.play:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,190,40,.5)}.play:disabled{opacity:.45;cursor:default;transform:none}
+.set{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}.set label{opacity:.8}
+.seg{display:flex;background:rgba(0,0,0,.35);border-radius:8px;padding:3px;gap:3px}.seg button{flex:1;padding:7px 6px;border:0;border-radius:6px;background:none;color:#fff;font:700 12px system-ui;cursor:pointer;opacity:.7}.seg button.on{background:#ffd23a;color:#111;opacity:1}
+input[type=range]{width:100%;accent-color:#ffd23a}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.msg{min-height:20px;color:#ffd23a;font-weight:600;font-size:14px}.err{color:#ff7a7a}
+.load{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:5;font:700 18px system-ui}.load.on{display:flex}
+.bar{width:280px;height:6px;background:#222;border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;width:30%;background:#ffd23a;animation:b 1s infinite ease-in-out}@keyframes b{0%{margin-left:-30%}100%{margin-left:100%}}
+.disc{background:#5865f2}.disc:hover{background:#6d78ff}
+.keys{opacity:.55;font-size:12px;line-height:1.7}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;overflow:auto}.news{display:none}}
+</style><script>addEventListener('contextmenu',e=>e.preventDefault());addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='f5'||k==='f12'||k==='f3'||(e.ctrlKey&&['r','p','f','u','s','g','h','j','n','t','o','+','-','=','0'].includes(k))||(e.ctrlKey&&e.shiftKey)||(e.altKey&&(k==='arrowleft'||k==='arrowright')))e.preventDefault();},true);addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault();},{passive:false});</script></head><body>
+<div class="bg"></div><div class="shade"></div>
+<div class="wrap">
+  <div class="left">
+    <div><div class="logo">ROTTERDAM<span>VII</span></div><div class="ver" id="ver">LAUNCHER</div></div>
+    <div class="news"><h3>NIEUW IN DEZE VERSIE</h3><ul>
+      <li>📻 Autoradio met 4 zenders en DJ's (Q)</li><li>🌧️ Weer: regen, onweer en mist</li><li>🔧 Garage: repareren, spuiten, velgen, spoiler en nitro</li>
+      <li>⭐ Verhaal: 5 missies tegen de Kaaskoning</li><li>📱 Telefoon (P): taxi, panden, missies</li><li>💇 Kapper, tattooshop, club, ziekenhuis en politiebureau</li></ul>
+      <div class="keys">WASD rijden/lopen · Muis kijken · F instappen · E actie · M kaart · P telefoon · Q radio · C wissel personage · Esc pauze</div></div>
+  </div>
+  <div class="panel">
+    <h2>SPELER</h2>
+    <div class="profiles" id="plist"></div>
+    <div class="new"><input id="pname" maxlength="24" placeholder="Nieuwe speler (naam)…"><div class="chars"><button data-c="barry" class="on">Barry</button><button data-c="bella">Bella</button></div><button class="btn" id="padd">+ Toevoegen</button></div>
+    <h2>INSTELLINGEN</h2>
+    <div class="set">
+      <label>Taal</label><div class="seg" id="slang"><button data-v="nl">Nederlands</button><button data-v="en">English</button><button data-v="de">Deutsch</button></div>
+      <label>Graphics</label><div class="seg" id="sgfx"><button data-v="auto">Auto</button><button data-v="laag">Laag</button><button data-v="middel">Middel</button><button data-v="hoog">Hoog</button></div>
+      <label>Scherm</label><div class="seg" id="sfs"><button data-v="1">Volledig scherm</button><button data-v="0">Venster</button></div>
+      <label>Volume</label><input type="range" id="svol" min="0" max="1" step="0.05">
+      <label>Radio</label><input type="range" id="srvol" min="0" max="1" step="0.05">
+    </div>
+    <div class="msg" id="msg"></div>
+    <button class="play" id="play" disabled>▶ SPELEN</button>
+    <div class="row"><button class="btn disc" id="disc">💬 Discord-server</button><button class="btn" id="quit">Afsluiten</button></div>
+  </div>
+</div>
+<div class="load" id="load"><div id="ltxt">Laden…</div><div class="bar"><i></i></div></div>
+<script>
+const $=i=>document.getElementById(i);let S={gfx:'auto',fs:true,vol:.8,rvol:.9,last:''},P=[],sel='',newChar='barry';
+window.onerror=(m,src,l,c,e)=>{fetch('/api/log',{method:'POST',body:'JS-fout: '+m+' @'+l+':'+c}).catch(()=>{});};
+window.onunhandledrejection=e=>{fetch('/api/log',{method:'POST',body:'Promise: '+(e.reason&&(e.reason.message||e.reason.status)||e.reason)}).catch(()=>{});};
+const api=(u,o)=>fetch(u,o).then(r=>{if(!r.ok)throw r;return r.json();});
+setInterval(()=>fetch('/api/ping').catch(()=>{}),4000);fetch('/api/ping').catch(()=>{});
+function msg(t,err){$('msg').textContent=t||'';$('msg').className='msg'+(err?' err':'');}
+function saveS(){fetch('/api/settings',{method:'POST',body:JSON.stringify(S)}).catch(()=>{});}
+function seg(id,val,cb){$(id).querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===String(val));b.onclick=()=>{cb(b.dataset.v);seg(id,b.dataset.v,cb);saveS();};});}
+function ago(t){if(!t)return 'nog niet gespeeld';const d=(Date.now()/1000-t)|0;return d<120?'net gespeeld':d<7200?Math.round(d/60)+' min geleden':d<172800?Math.round(d/3600)+' uur geleden':Math.round(d/86400)+' dagen geleden';}
+function render(){
+  const L=$('plist');L.innerHTML='';
+  if(!P.length)L.innerHTML='<div style="opacity:.6">Nog geen spelers. Typ je naam hieronder om te beginnen.</div>';
+  for(const p of P){const d=document.createElement('div');d.className='prof'+(p.name===sel?' sel':'');
+    d.innerHTML='<div class="av '+p.char+'">'+(p.name[0]||'?').toUpperCase()+'</div><div class="pn"><b></b><small>'+(p.has?'Verhaal '+Math.min(p.story,5)+'/5 · € '+p.cash.toLocaleString('nl-NL')+' · ':'Nieuw spel · ')+ago(p.lastPlay)+'</small></div><button class="del" title="Verwijderen">✕</button>';
+    d.querySelector('b').textContent=p.name;
+    d.onclick=()=>{sel=p.name;S.last=sel;saveS();render();};d.ondblclick=()=>{sel=p.name;play();};
+    d.querySelector('.del').onclick=e=>{e.stopPropagation();if(d.dataset.sure){api('/api/profiles?name='+encodeURIComponent(p.name),{method:'DELETE'}).then(r=>{P=r;if(sel===p.name)sel=P[0]?P[0].name:'';render();msg(p.name+' is verwijderd.');});}else{d.dataset.sure=1;e.target.textContent='Zeker?';e.target.style.opacity=1;e.target.style.color='#ff5a5f';setTimeout(()=>{delete d.dataset.sure;e.target.textContent='✕';e.target.style='';},3000);}};
+    L.appendChild(d);}
+  $('play').disabled=!sel;$('play').textContent=sel?'▶ SPELEN ALS '+sel.toUpperCase():'▶ SPELEN';
+}
+async function add(){const n=$('pname').value.trim();if(!n){msg('Typ eerst een naam.',1);return;}
+  let r;try{r=await fetch('/api/profiles',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,char:newChar})});}catch(e){msg('Geen verbinding met de launcher. Start Rotterdam VII opnieuw.',1);return;}
+  if(!r.ok){msg((await r.text()).trim()||'Dat lukte niet.',1);return;}
+  try{P=await r.json();}catch(e){P=await api('/api/profiles').catch(()=>P);}
+  const p=P.find(x=>x.name.toLowerCase()===n.replace(/[^\p{L}\p{N}_\- ]/gu,'').trim().slice(0,24).toLowerCase())||P[P.length-1];
+  if(p){sel=p.name;S.last=sel;saveS();}$('pname').value='';try{render();}catch(e){}msg(p?'Welkom, '+p.name+'!':'Speler toegevoegd.');}
+async function pollUpd(){for(let i=0;i<40;i++){const st=await api('/api/status').catch(()=>null);if(!st)return;const u=st.update||{};
+  if(u.state==='bijgewerkt'){$('ver').textContent='LAUNCHER '+st.version+' · SPEL '+st.game+' · ✨ NET BIJGEWERKT';msg('Update geïnstalleerd: versie '+st.game+(u.notes?' – '+u.notes:''));return;}
+  if(u.launcher){msg(u.auto?'Nieuwe app-versie '+u.launcher+' wordt gedownload en bij afsluiten geïnstalleerd.':'Er is een nieuwe app-versie ('+u.launcher+'). Download hem via liamdej0ng.github.io/rotterdam7');}
+  if(u.state!=='zoeken')return;await new Promise(r=>setTimeout(r,1500));}}
+async function play(){
+  if(!sel){if(!P.length){$('pname').value=$('pname').value||'Speler';await add();}if(!sel)return;}const p=P.find(x=>x.name===sel);$('load').classList.add('on');$('ltxt').textContent='Spel laden…';
+  try{const st=await api('/api/status');if(!st.engineCached){$('ltxt').textContent='3D-engine downloaden (alleen de eerste keer)…';const r=await api('/api/prepare');if(!r.ok)throw new Error('engine');}
+    if(st.update&&st.update.state==='zoeken'){$('ltxt').textContent='Zoeken naar updates…';for(let i=0;i<20;i++){await new Promise(r=>setTimeout(r,500));const s2=await api('/api/status');if(s2.update.state!=='zoeken')break;}}
+    const sv=await fetch('/api/save?user='+encodeURIComponent(sel)).then(r=>r.text());if(sv&&sv!=='null')localStorage.setItem('rotterdam7:'+sel,sv);else localStorage.removeItem('rotterdam7:'+sel);
+    const q=new URLSearchParams({lang:S.lang||'nl',user:sel,char:p?p.char:'barry',gfx:S.gfx,fs:S.fs?'1':'0',vol:S.vol,rvol:S.rvol});location.href='/game?'+q;}
+  catch(e){$('load').classList.remove('on');fetch('/api/log',{method:'POST',body:'starten mislukt: '+(e&&(e.message||e.status))}).catch(()=>{});
+    msg(e&&e.message==='engine'?'De 3D-engine kon niet worden gedownload. De eerste keer is internet nodig; daarna werkt alles offline.':'Starten lukte niet ('+(e&&(e.message||e.status)||'onbekend')+'). Probeer het opnieuw.',1);}
+}
+document.querySelectorAll('.chars button').forEach(b=>b.onclick=()=>{newChar=b.dataset.c;document.querySelectorAll('.chars button').forEach(x=>x.classList.toggle('on',x===b));});
+$('padd').onclick=add;$('pname').onkeydown=e=>{if(e.key==='Enter')add();};$('play').onclick=play;
+$('disc').onclick=()=>fetch('/api/open?u='+encodeURIComponent('https://discord.gg/GXM3Mb2TNp')).catch(()=>window.open('https://discord.gg/GXM3Mb2TNp'));
+$('quit').onclick=()=>{fetch('/api/quit').finally(()=>window.close());};
+addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement!==$('pname')&&sel)play();});
+Promise.all([api('/api/status'),api('/api/settings'),api('/api/profiles')]).then(([st,s,p])=>{$('ver').textContent='LAUNCHER '+st.version+' · SPEL '+st.game+(st.engineCached?' · OFFLINE KLAAR':'');pollUpd();S=Object.assign(S,s);P=p;
+  sel=P.find(x=>x.name===S.last)?S.last:(P[0]?P[0].name:'');
+  seg('slang',S.lang,v=>{S.lang=v;setTimeout(()=>location.href='/?lang='+v,250);});seg('sgfx',S.gfx,v=>S.gfx=v);seg('sfs',S.fs?'1':'0',v=>S.fs=v==='1');$('svol').value=S.vol;$('srvol').value=S.rvol;
+  $('svol').oninput=()=>{S.vol=+$('svol').value;};$('svol').onchange=saveS;$('srvol').oninput=()=>{S.rvol=+$('srvol').value;};$('srvol').onchange=saveS;render();if(!P.length)$('pname').focus();})
+ .catch(()=>msg('Launcher kon niet starten.',1));
+</script></body></html>
