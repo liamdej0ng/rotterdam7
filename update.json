@@ -1,8 +1,8 @@
 {
- "version": "1.0.2",
+ "version": "1.0.3",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "f6c87c5b67b5bd472bfd8dafd0c5af3d2e50a7d8a08b840a1982934dc201f8e7",
- "notes": "Launcher met spelers, updates en Discord",
- "launcher": "1.0.2",
+ "sha256": "9004defae936ba01d1c2c58a38a2a6209d8e65628ce7d55d2ce185a38991c832",
+ "notes": "Geen 'pagina vertalen' meer, volledig scherm als app, afsluitknop",
+ "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/"
 }
