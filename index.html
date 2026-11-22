@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>Rotterdam VII – Download</title><link rel="icon" href="favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#07050b;color:#fff;font:500 16px system-ui,Segoe UI,sans-serif;display:flex;align-items:center;justify-content:center}
+.bg{position:fixed;inset:-30px;background:url(poster.jpg) center/cover;filter:blur(12px) brightness(.4);z-index:-1}
+.c{text-align:center;padding:30px;max-width:640px}.logo{font:900 clamp(54px,12vw,96px)/.9 Impact,"Arial Black",sans-serif;text-shadow:4px 4px 0 #000}.logo span{display:block;color:#c8102e;font-size:1.3em;text-shadow:3px 3px 0 #fff}
+a.dl{display:inline-block;margin:28px 0 10px;padding:18px 34px;border-radius:12px;background:linear-gradient(#ffd23a,#f0a81a);color:#151008;font:900 22px "Arial Black",system-ui;text-decoration:none;letter-spacing:.06em}
+a.dc{display:inline-block;margin-top:8px;padding:10px 20px;border-radius:10px;background:#5865f2;color:#fff;text-decoration:none;font-weight:700}
+p{opacity:.85;line-height:1.5}small{opacity:.6}</style></head><body><div class="bg"></div><div class="c">
+<div class="logo">ROTTERDAM<span>VII</span></div>
+<a class="dl" href="Rotterdam-VII.exe" download>⬇ DOWNLOAD VOOR WINDOWS</a><br><small id="v"></small>
+<p>Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>.<br>Updates komen daarna vanzelf binnen.</p>
+<a class="dc" href="https://discord.gg/GXM3Mb2TNp">💬 Discord</a></div>
+<script>fetch('update.json').then(r=>r.json()).then(u=>document.getElementById('v').textContent='Versie '+u.version).catch(()=>{});</script></body></html>
