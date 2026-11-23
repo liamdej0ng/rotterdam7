@@ -1,8 +1,8 @@
 {
- "version": "1.1.0",
+ "version": "1.1.1",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "9dd15c04ee424bef891f534c61f7abf34378d8277484416f6b58380552e07c08",
- "notes": "Nieuw verhaal: container VII-007 met 8 personages, 24 missies en een finale met keuze",
+ "sha256": "bd32fa8c5f8b0b824adda66f0ab3d89685ec2ea356aabc22dacdfd9e5665b298",
+ "notes": "Sneller: ongeveer 70% minder om te tekenen, minder lag",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.0",
