@@ -1,28 +1,257 @@
-<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>Rotterdam VII – Download</title><link rel="icon" href="favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
-<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#07050b;color:#fff;font:500 16px system-ui,Segoe UI,sans-serif;display:flex;align-items:center;justify-content:center}
-.bg{position:fixed;inset:-30px;background:url(poster.jpg) center/cover;filter:blur(12px) brightness(.4);z-index:-1}
-.c{text-align:center;padding:30px;max-width:640px}.logo{font:900 clamp(54px,12vw,96px)/.9 Impact,"Arial Black",sans-serif;text-shadow:4px 4px 0 #000}.logo span{display:block;color:#c8102e;font-size:1.3em;text-shadow:3px 3px 0 #fff}
-a.dl{display:inline-block;margin:28px 0 10px;padding:18px 34px;border-radius:12px;background:linear-gradient(#ffd23a,#f0a81a);color:#151008;font:900 22px "Arial Black",system-ui;text-decoration:none;letter-spacing:.06em}
-a.dc{display:inline-block;margin-top:8px;padding:10px 20px;border-radius:10px;background:#5865f2;color:#fff;text-decoration:none;font-weight:700}
-.langs{position:fixed;top:14px;right:16px;display:flex;gap:6px}.langs button{background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 9px;font:700 12px system-ui;cursor:pointer}.langs button.on{background:#ffd23a;color:#111}
-p{opacity:.85;line-height:1.5}.dj{margin-top:8px;font-size:14px;opacity:.8}.cr{margin-top:24px;font-size:14px}.cr b{display:block;font-size:16px;letter-spacing:.04em}.dev{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:20px;background:rgba(255,210,58,.15);border:1px solid #ffd23a;color:#ffd23a;font:800 12px system-ui;letter-spacing:.14em;text-transform:uppercase}.cr p{margin:10px auto 0;max-width:460px;font-size:13px;opacity:.65}small{opacity:.6}</style></head><body><div class="bg"></div>
-<div class="langs"><button data-l="nl">NL</button><button data-l="en">EN</button><button data-l="de">DE</button></div>
-<div class="c">
-<div class="logo">ROTTERDAM<span>VII</span></div>
-<a class="dl" id="dl" href="https://github.com/liamdej0ng/rotterdam7/releases/latest"></a><br><small id="v"></small>
-<p id="how"></p><p id="feat"></p>
-<a class="dc" href="https://discord.gg/GXM3Mb2TNp">💬 Discord</a>
-<div class="dj" id="dj"></div>
-<div class="cr"><b>Made By Liam</b><span class="dev">In Development</span><p id="ea"></p></div></div>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Rotterdam VII</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rotterdam VII – een open-wereld game in Rotterdam. Early Access, gratis te downloaden voor Windows.">
+<meta property="og:title" content="Rotterdam VII">
+<meta property="og:description" content="Alles kan kapot. Early Access – gratis voor Windows.">
+<meta property="og:image" content="https://liamdej0ng.github.io/rotterdam7/media/brug.jpg">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0716;--navy:#120b2a;--purple:#3b1a6e;--pink:#ff4f8b;--orange:#ff9a4a;--gold:#ffd23a;--red:#c8102e;--txt:#f4eefc}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--txt);font:400 17px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.display{font-family:Anton,Impact,"Arial Black",sans-serif;font-weight:400;letter-spacing:.01em;line-height:.9;text-transform:uppercase}
+nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:28px;padding:16px 4vw;transition:background .3s,backdrop-filter .3s}
+nav.solid{background:rgba(11,7,22,.82);backdrop-filter:blur(12px)}
+.brand{font-family:Anton,Impact,sans-serif;font-size:24px;letter-spacing:.04em;white-space:nowrap}.brand span{color:var(--red)}
+nav .links{display:flex;gap:24px;margin-left:auto;font:800 13px Inter;letter-spacing:.14em;text-transform:uppercase}
+nav .links a{opacity:.75;transition:opacity .2s}nav .links a:hover{opacity:1}
+.langs{display:flex;gap:4px}.langs button{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:6px;padding:4px 8px;font:800 11px Inter;cursor:pointer}.langs button.on{background:var(--gold);border-color:var(--gold);color:#111}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font:800 14px Inter;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:0;transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.gold{background:var(--gold);color:#140e02;box-shadow:0 10px 40px rgba(255,210,58,.35)}
+.btn.ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px)}
+nav .btn{padding:10px 18px;font-size:12px}
+.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;overflow:hidden}
+.hero video,.hero .still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,7,22,.35) 0%,rgba(11,7,22,0) 30%,rgba(59,26,110,.25) 60%,var(--ink) 100%)}
+.hero .inner{position:relative;z-index:2;padding:0 4vw 9vh;width:100%}
+.logo{font-size:clamp(78px,15vw,230px);text-shadow:0 8px 40px rgba(0,0,0,.45)}
+.logo span{color:var(--red);-webkit-text-stroke:3px #fff;paint-order:stroke fill}
+.tag{margin:14px 0 28px;font:800 clamp(16px,2vw,22px) Inter;letter-spacing:.35em;text-transform:uppercase;color:var(--gold)}
+.badge{display:inline-block;margin-bottom:18px;padding:6px 14px;border-radius:999px;border:1px solid var(--gold);color:var(--gold);font:800 12px Inter;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.35)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.scroll{position:absolute;z-index:2;bottom:24px;left:50%;transform:translateX(-50%);font:800 11px Inter;letter-spacing:.3em;opacity:.6;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translate(-50%,6px)}}
+section{position:relative;padding:14vh 4vw}
+.kicker{font:800 13px Inter;letter-spacing:.35em;text-transform:uppercase;color:var(--pink);margin-bottom:14px}
+h2.display{font-size:clamp(56px,9vw,140px);margin-bottom:28px}
+.lead{max-width:640px;font-size:clamp(17px,1.4vw,20px);opacity:.85}
+#trailer{background:radial-gradient(ellipse at 50% 0%,rgba(255,79,139,.18),transparent 60%),var(--ink)}
+.player{position:relative;margin-top:40px;border-radius:18px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);aspect-ratio:16/9;background:#000}
+.player video{width:100%;height:100%;object-fit:cover}
+#personages{padding:0}
+.char{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.char img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.char::after{content:"";position:absolute;inset:0}
+.char.l::after{background:linear-gradient(90deg,rgba(11,7,22,.95) 0%,rgba(11,7,22,.65) 38%,rgba(11,7,22,0) 70%)}
+.char.r::after{background:linear-gradient(270deg,rgba(11,7,22,.95) 0%,rgba(11,7,22,.65) 38%,rgba(11,7,22,0) 70%)}
+.char .txt{position:relative;z-index:2;max-width:520px;padding:0 4vw}
+.char.r .txt{margin-left:auto}
+.char .name{font-size:clamp(70px,10vw,160px)}
+.char.l .name{color:var(--orange)}.char.r .name{color:var(--pink)}
+.quote{margin:22px 0;font:800 20px Inter;color:var(--gold)}
+#stad{background:linear-gradient(180deg,var(--ink),var(--navy) 50%,var(--ink))}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:50px}
+.tile{position:relative;border-radius:16px;overflow:hidden;min-height:300px;background:#222}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.tile:hover img{transform:scale(1.06)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,7,22,.9))}
+.tile .cap{position:absolute;z-index:2;left:22px;bottom:18px;right:22px}
+.tile .cap b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:34px;letter-spacing:.02em;text-transform:uppercase}
+.tile .cap span{font-size:14px;opacity:.8}
+.t1{grid-column:span 7;min-height:440px}.t2{grid-column:span 5;min-height:440px}.t3{grid-column:span 4}.t4{grid-column:span 4}.t5{grid-column:span 4}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:50px}
+.feat{padding:28px;border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08)}
+.feat i{font-style:normal;font-size:34px}.feat h3{margin:12px 0 6px;font:800 18px Inter;letter-spacing:.04em}.feat p{font-size:15px;opacity:.75}
+#download{text-align:center;overflow:hidden;background:var(--ink)}
+#download::before{content:"";position:absolute;inset:0;background:url(media/brug.jpg) center/cover;opacity:.35;filter:saturate(1.2)}
+#download::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(59,26,110,.35),var(--ink) 75%)}
+#download>*{position:relative;z-index:2}
+#download h2{margin-bottom:12px}
+.ver{margin:8px 0 34px;opacity:.7;font-size:14px;letter-spacing:.1em}
+.steps{max-width:620px;margin:30px auto 0;font-size:15px;opacity:.8}
+.req{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:13px;letter-spacing:.08em;opacity:.65;text-transform:uppercase}
+.disc{margin-top:50px}.disc a{display:inline-flex;gap:10px;align-items:center;padding:12px 24px;border-radius:12px;background:#5865f2;font-weight:800}.disc p{margin-top:10px;font-size:14px;opacity:.8}
+footer{padding:60px 4vw 50px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+footer b{display:block;font-size:17px;letter-spacing:.04em}
+.dev{display:inline-block;margin-top:10px;padding:4px 14px;border-radius:999px;background:rgba(255,210,58,.12);border:1px solid var(--gold);color:var(--gold);font:800 12px Inter;letter-spacing:.18em;text-transform:uppercase}
+footer p{max-width:520px;margin:14px auto 0;font-size:14px;opacity:.6}
+footer small{display:block;margin-top:24px;opacity:.4;font-size:12px}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s}.rv.in{opacity:1;transform:none}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:4vw}.modal.on{display:flex}
+.modal video{width:min(1400px,100%);border-radius:12px}
+.modal .x{position:absolute;top:20px;right:26px;font:800 30px Inter;cursor:pointer;background:none;border:0;color:#fff}
+@media (max-width:900px){
+ nav .links{display:none}nav{gap:12px}nav .langs{margin-left:auto}
+ .grid{grid-template-columns:1fr}.t1,.t2,.t3,.t4,.t5{grid-column:auto;min-height:260px}
+ .char{min-height:85vh;align-items:flex-end;padding-bottom:8vh}
+ .char.l::after,.char.r::after{background:linear-gradient(180deg,rgba(11,7,22,0) 30%,rgba(11,7,22,.95) 85%)}
+ .char.r .txt{margin-left:0}
+ .char{display:block;min-height:0;padding:0}
+ .char img{position:relative;height:62vh;object-position:var(--pos,50%) center}
+ .char.l img{--pos:68%}.char.r img{--pos:32%}
+ .char.l::after,.char.r::after{display:none}
+ .char .txt{padding:24px 6vw 60px;max-width:none}
+}
+@media (max-width:520px){
+ .brand{font-size:20px;white-space:nowrap}
+ nav .btn{display:none}
+}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.scroll{animation:none}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a class="brand" href="#top">ROTTERDAM <span>VII</span></a>
+  <div class="links"><a href="#trailer" data-t="navTrailer"></a><a href="#personages" data-t="navChars"></a><a href="#stad" data-t="navCity"></a><a href="#features" data-t="navFeat"></a></div>
+  <div class="langs"><button data-l="nl">NL</button><button data-l="en">EN</button><button data-l="de">DE</button></div>
+  <a class="btn gold dl" href="#download" data-t="navDl"></a>
+</nav>
+<header class="hero" id="top">
+  <img class="still" src="media/brug.jpg" alt="">
+  <video autoplay muted loop playsinline preload="auto" poster="media/brug.jpg"><source src="media/hero.mp4" type="video/mp4"></video>
+  <div class="inner">
+    <div class="badge" data-t="badge"></div>
+    <h1 class="display logo">ROTTERDAM <span>VII</span></h1>
+    <div class="tag" data-t="tag"></div>
+    <div class="cta">
+      <button class="btn ghost" id="watch" data-t="watch"></button>
+      <a class="btn gold dl" href="#download" data-t="dlFree"></a>
+    </div>
+  </div>
+  <div class="scroll">SCROLL ↓</div>
+</header>
+<section id="trailer">
+  <div class="kicker rv" data-t="trK"></div>
+  <h2 class="display rv" data-t="trH"></h2>
+  <div class="player rv"><video controls preload="metadata" poster="media/trailer-poster.jpg"><source src="media/trailer.mp4" type="video/mp4"></video></div>
+</section>
+<section id="personages">
+  <div class="char l">
+    <img src="media/barry.jpg" alt="Barry Boem" loading="lazy">
+    <div class="txt rv">
+      <div class="kicker" data-t="c1K"></div>
+      <h2 class="display name">Barry<br>Boem</h2>
+      <p class="lead" data-t="c1"></p>
+      <div class="quote" data-t="c1Q"></div>
+    </div>
+  </div>
+  <div class="char r">
+    <img src="media/bella.jpg" alt="Bella Boem" loading="lazy">
+    <div class="txt rv">
+      <div class="kicker" data-t="c2K"></div>
+      <h2 class="display name">Bella<br>Boem</h2>
+      <p class="lead" data-t="c2"></p>
+      <div class="quote" data-t="c2Q"></div>
+    </div>
+  </div>
+</section>
+<section id="stad">
+  <div class="kicker rv" data-t="cityK"></div>
+  <h2 class="display rv" data-t="cityH"></h2>
+  <p class="lead rv" data-t="city"></p>
+  <div class="grid">
+    <div class="tile t1 rv"><img src="media/aerial.jpg" alt="" loading="lazy"><div class="cap"><b data-t="p1"></b><span data-t="p1s"></span></div></div>
+    <div class="tile t2 rv"><img src="media/maastoren.jpg" alt="" loading="lazy"><div class="cap"><b>Maastoren</b><span data-t="p2s"></span></div></div>
+    <div class="tile t3 rv"><img src="media/kubus.jpg" alt="" loading="lazy"><div class="cap"><b>Kantelhuizen</b><span data-t="p3s"></span></div></div>
+    <div class="tile t4 rv"><img src="media/brug.jpg" alt="" loading="lazy"><div class="cap"><b>Zwanenbrug</b><span data-t="p4s"></span></div></div>
+    <div class="tile t5 rv"><img src="media/nacht.jpg" alt="" loading="lazy"><div class="cap"><b data-t="p5"></b><span data-t="p5s"></span></div></div>
+  </div>
+</section>
+<section id="features">
+  <div class="kicker rv" data-t="fK"></div>
+  <h2 class="display rv" data-t="fH"></h2>
+  <div class="feats">
+    <div class="feat rv"><i>⭐</i><h3 data-t="f1"></h3><p data-t="f1p"></p></div>
+    <div class="feat rv"><i>📻</i><h3 data-t="f2"></h3><p data-t="f2p"></p></div>
+    <div class="feat rv"><i>🔧</i><h3 data-t="f3"></h3><p data-t="f3p"></p></div>
+    <div class="feat rv"><i>🌧️</i><h3 data-t="f4"></h3><p data-t="f4p"></p></div>
+    <div class="feat rv"><i>📱</i><h3 data-t="f5"></h3><p data-t="f5p"></p></div>
+    <div class="feat rv"><i>🌍</i><h3 data-t="f6"></h3><p data-t="f6p"></p></div>
+  </div>
+</section>
+<section id="download">
+  <div class="kicker rv" data-t="dK"></div>
+  <h2 class="display rv" data-t="dH"></h2>
+  <a class="btn gold dl rv" id="dlbtn" href="https://github.com/liamdej0ng/rotterdam7/releases/latest" style="font-size:17px;padding:20px 40px" data-t="dlWin"></a>
+  <div class="ver" id="ver"></div>
+  <p class="steps rv" data-t="steps"></p>
+  <div class="req rv"><span>Windows 10 / 11 · 64-bit</span><span data-t="reqGpu"></span><span>± 100 MB</span></div>
+  <div class="disc rv"><a href="https://discord.gg/GXM3Mb2TNp">💬 Discord</a><p data-t="disc"></p></div>
+</section>
+<footer>
+  <b>Made By Liam</b>
+  <span class="dev">In Development</span>
+  <p data-t="ea"></p>
+  <small>© 2026 Rotterdam VII · <span data-t="rights"></span></small>
+</footer>
+<div class="modal" id="modal"><button class="x" id="mx" aria-label="Sluiten">✕</button><video id="mv" controls preload="none" poster="media/trailer-poster.jpg"><source src="media/trailer.mp4" type="video/mp4"></video></div>
 <script>
 const T={
- nl:{dl:'⬇ DOWNLOAD VOOR WINDOWS',v:'Versie ',how:'Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>.<br>Rotterdam VII installeert zichzelf en zet een snelkoppeling op je bureaublad. Updates komen daarna vanzelf binnen.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch',dj:'Join de Discord voor updates, tips en om samen te spelen!',ea:'Rotterdam VII is nog in Early Access. Er wordt elke dag aan gewerkt om het spel helemaal af en goed te maken. Kom je een fout tegen? Laat het weten in de Discord!'},
- en:{dl:'⬇ DOWNLOAD FOR WINDOWS',v:'Version ',how:'Double-click the file. Get a blue warning? Click <b>More info</b> → <b>Run anyway</b>.<br>Rotterdam VII installs itself and puts a shortcut on your desktop. Updates arrive automatically after that.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch',dj:'Join the Discord for updates, tips and to play together!',ea:'Rotterdam VII is still in Early Access. We work on it every day to make the game complete and polished. Found a bug? Let us know on Discord!'},
- de:{dl:'⬇ DOWNLOAD FÜR WINDOWS',v:'Version ',how:'Doppelklicke auf die Datei. Kommt eine blaue Warnung? Klick auf <b>Weitere Informationen</b> → <b>Trotzdem ausführen</b>.<br>Rotterdam VII installiert sich selbst und legt eine Verknüpfung auf deinem Desktop an. Updates kommen danach automatisch.',feat:'🇳🇱 Nederlands · 🇬🇧 English · 🇩🇪 Deutsch',dj:'Tritt dem Discord bei für Updates, Tipps und um zusammen zu spielen!',ea:'Rotterdam VII ist noch im Early Access. Es wird jeden Tag daran gearbeitet, das Spiel komplett und richtig gut zu machen. Einen Fehler gefunden? Sag es uns im Discord!'}};
-let L=(localStorage.getItem('r7lang')||navigator.language||'nl').slice(0,2);if(!T[L])L='en';let ver='';
-function show(){const t=T[L];document.documentElement.lang=L;document.getElementById('dl').textContent=t.dl;document.getElementById('how').innerHTML=t.how;document.getElementById('feat').textContent=t.feat;document.getElementById('ea').textContent=t.ea;document.getElementById('dj').textContent=t.dj;document.getElementById('v').textContent=ver?t.v+ver:'';
+nl:{navTrailer:'Trailer',navChars:'Personages',navCity:'De stad',navFeat:'Features',navDl:'Download',
+ badge:'Early Access · Gratis',tag:'Alles kan kapot',watch:'▶ Bekijk de trailer',dlFree:'⬇ Download gratis',
+ trK:'Trailer',trH:'Welkom in de havenstad',
+ c1K:'Personage 01',c1:'Barry is de man met de grote plannen en de nog grotere mond. Hij kent elke straat, elke snackbar en elke smoes. Eén ding weet hij zeker: deze stad wordt van hem.',c1Q:'"Alles kan kapot!"',
+ c2K:'Personage 02',c2:'Bella houdt het hoofd koel als Barry dat niet doet. Ze rijdt sneller, schiet beter en heeft altijd een plan B. Samen nemen ze het op tegen de Kaaskoning.',c2Q:'"Alles kan kapot, behalve m\'n nagels."',
+ cityK:'De stad',cityH:'Jouw Rotterdam',city:'Rij door een open wereld vol hoge torens, kantelhuizen, bruggen en havens. Van zonsopgang tot een stad vol lichtjes in de nacht: je kunt overal heen.',
+ p1:'De skyline',p1s:'Torens, parken en de rivier, allemaal open om te verkennen',p2s:'Het hoogste punt van de stad',p3s:'Wonen op z\'n kop',p4s:'De brug bij zonsondergang',p5:'De nacht',p5s:'Als de lichten aangaan, wordt het pas echt spannend',
+ fK:'Features',fH:'Wat je kunt doen',
+ f1:'Een echt verhaal',f1p:'5 verhaalmissies tegen de Kaaskoning, met filmpjes tussendoor.',f2:'Autoradio',f2p:'4 zenders met eigen muziek en DJ\'s. Wissel met Q.',f3:'Garage',f3p:'Repareren, spuiten, velgen, spoiler en nitro.',f4:'Weer & dag/nacht',f4p:'Zon, regen, onweer en mist, en een stad die leeft.',f5:'Telefoon',f5p:'Bel een taxi, koop panden en start missies.',f6:'3 talen',f6p:'Speel in het Nederlands, Engels of Duits.',
+ dK:'Download',dH:'Speel het nu',dlWin:'⬇ Download voor Windows',ver:'Versie ',
+ steps:'Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>. Rotterdam VII installeert zichzelf en zet een snelkoppeling op je bureaublad. Updates komen daarna vanzelf binnen.',
+ reqGpu:'Elke moderne pc',disc:'Join de Discord voor updates, tips en om samen te spelen!',
+ ea:'Rotterdam VII is nog in Early Access. Er wordt elke dag aan gewerkt om het spel helemaal af en goed te maken. Kom je een fout tegen? Laat het weten in de Discord!',rights:'Alle rechten voorbehouden'},
+en:{navTrailer:'Trailer',navChars:'Characters',navCity:'The city',navFeat:'Features',navDl:'Download',
+ badge:'Early Access · Free',tag:'Everything can break',watch:'▶ Watch the trailer',dlFree:'⬇ Download free',
+ trK:'Trailer',trH:'Welcome to the harbour city',
+ c1K:'Character 01',c1:'Barry is the man with big plans and an even bigger mouth. He knows every street, every snack bar and every excuse. One thing he\'s sure of: this city will be his.',c1Q:'"Everything can break!"',
+ c2K:'Character 02',c2:'Bella keeps a cool head when Barry doesn\'t. She drives faster, shoots better and always has a plan B. Together they take on the Cheese King.',c2Q:'"Everything can break, except my nails."',
+ cityK:'The city',cityH:'Your Rotterdam',city:'Drive through an open world full of towers, tilted houses, bridges and harbours. From sunrise to a city full of lights at night: you can go anywhere.',
+ p1:'The skyline',p1s:'Towers, parks and the river, all open to explore',p2s:'The highest point in the city',p3s:'Living upside down',p4s:'The bridge at sunset',p5:'The night',p5s:'When the lights come on, things get exciting',
+ fK:'Features',fH:'What you can do',
+ f1:'A real story',f1p:'5 story missions against the Cheese King, with cutscenes.',f2:'Car radio',f2p:'4 stations with their own music and DJs. Switch with Q.',f3:'Garage',f3p:'Repairs, paint, rims, spoiler and nitro.',f4:'Weather & day/night',f4p:'Sun, rain, thunderstorms and fog, in a city that feels alive.',f5:'Phone',f5p:'Call a taxi, buy properties and start missions.',f6:'3 languages',f6p:'Play in Dutch, English or German.',
+ dK:'Download',dH:'Play it now',dlWin:'⬇ Download for Windows',ver:'Version ',
+ steps:'Double-click the file. Get a blue warning? Click <b>More info</b> → <b>Run anyway</b>. Rotterdam VII installs itself and puts a shortcut on your desktop. Updates arrive automatically after that.',
+ reqGpu:'Any modern PC',disc:'Join the Discord for updates, tips and to play together!',
+ ea:'Rotterdam VII is still in Early Access. We work on it every day to make the game complete and polished. Found a bug? Let us know on Discord!',rights:'All rights reserved'},
+de:{navTrailer:'Trailer',navChars:'Figuren',navCity:'Die Stadt',navFeat:'Features',navDl:'Download',
+ badge:'Early Access · Kostenlos',tag:'Alles kann kaputt',watch:'▶ Trailer ansehen',dlFree:'⬇ Kostenlos laden',
+ trK:'Trailer',trH:'Willkommen in der Hafenstadt',
+ c1K:'Figur 01',c1:'Barry ist der Mann mit großen Plänen und einer noch größeren Klappe. Er kennt jede Straße, jede Imbissbude und jede Ausrede. Eins ist sicher: Diese Stadt wird ihm gehören.',c1Q:'„Alles kann kaputt!“',
+ c2K:'Figur 02',c2:'Bella behält einen kühlen Kopf, wenn Barry es nicht tut. Sie fährt schneller, schießt besser und hat immer einen Plan B. Zusammen legen sie sich mit dem Käsekönig an.',c2Q:'„Alles kann kaputt, außer meinen Nägeln.“',
+ cityK:'Die Stadt',cityH:'Dein Rotterdam',city:'Fahr durch eine offene Welt voller Türme, Kipphäuser, Brücken und Häfen. Vom Sonnenaufgang bis zur Stadt voller Lichter bei Nacht: Du kannst überall hin.',
+ p1:'Die Skyline',p1s:'Türme, Parks und der Fluss, alles offen zum Erkunden',p2s:'Der höchste Punkt der Stadt',p3s:'Wohnen auf dem Kopf',p4s:'Die Brücke bei Sonnenuntergang',p5:'Die Nacht',p5s:'Wenn die Lichter angehen, wird es spannend',
+ fK:'Features',fH:'Was du tun kannst',
+ f1:'Eine echte Story',f1p:'5 Story-Missionen gegen den Käsekönig, mit Zwischensequenzen.',f2:'Autoradio',f2p:'4 Sender mit eigener Musik und DJs. Wechseln mit Q.',f3:'Werkstatt',f3p:'Reparatur, Lack, Felgen, Spoiler und Nitro.',f4:'Wetter & Tag/Nacht',f4p:'Sonne, Regen, Gewitter und Nebel, in einer lebendigen Stadt.',f5:'Handy',f5p:'Ruf ein Taxi, kauf Immobilien und starte Missionen.',f6:'3 Sprachen',f6p:'Spiel auf Niederländisch, Englisch oder Deutsch.',
+ dK:'Download',dH:'Jetzt spielen',dlWin:'⬇ Download für Windows',ver:'Version ',
+ steps:'Doppelklicke auf die Datei. Kommt eine blaue Warnung? Klick auf <b>Weitere Informationen</b> → <b>Trotzdem ausführen</b>. Rotterdam VII installiert sich selbst und legt eine Verknüpfung auf deinem Desktop an. Updates kommen danach automatisch.',
+ reqGpu:'Jeder moderne PC',disc:'Tritt dem Discord bei für Updates, Tipps und um zusammen zu spielen!',
+ ea:'Rotterdam VII ist noch im Early Access. Es wird jeden Tag daran gearbeitet, das Spiel komplett und richtig gut zu machen. Einen Fehler gefunden? Sag es uns im Discord!',rights:'Alle Rechte vorbehalten'}};
+let L;try{L=localStorage.getItem('r7lang')}catch(e){}L=(L||navigator.language||'nl').slice(0,2);if(!T[L])L='en';let ver='';
+function show(){const t=T[L];document.documentElement.lang=L;
+ document.querySelectorAll('[data-t]').forEach(e=>{const v=t[e.dataset.t];if(v!=null)e.innerHTML=v;});
+ document.getElementById('ver').textContent=ver?t.ver+ver+' · Early Access':'';
  document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));}
 document.querySelectorAll('.langs button').forEach(b=>b.onclick=()=>{L=b.dataset.l;try{localStorage.setItem('r7lang',L)}catch(e){}show();});
 show();
-fetch('update.json',{cache:'no-store'}).then(r=>r.json()).then(u=>{if(u.app){ver=u.app;document.getElementById('dl').href=u.appUrl||('https://github.com/liamdej0ng/rotterdam7/releases/download/v'+u.app+'/Rotterdam-VII-Setup-'+u.app+'.exe');}show();}).catch(()=>{});
-</script></body></html>
+fetch('update.json',{cache:'no-store'}).then(r=>r.json()).then(u=>{if(u.app){ver=u.app;const url=u.appUrl||('https://github.com/liamdej0ng/rotterdam7/releases/download/v'+u.app+'/Rotterdam-VII-Setup-'+u.app+'.exe');document.getElementById('dlbtn').href=url;}show();}).catch(()=>{});
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>60),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+const m=document.getElementById('modal'),mv=document.getElementById('mv');
+document.getElementById('watch').onclick=()=>{m.classList.add('on');mv.currentTime=0;mv.play().catch(()=>{});};
+const close=()=>{m.classList.remove('on');mv.pause();};
+document.getElementById('mx').onclick=close;m.onclick=e=>{if(e.target===m)close();};addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+const hv=document.querySelector('.hero video');hv.addEventListener('error',()=>hv.remove(),true);
+</script>
+</body>
+</html>
