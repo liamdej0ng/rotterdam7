@@ -1,13 +1,13 @@
 {
- "version": "1.1.1",
+ "version": "1.1.2",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "bd32fa8c5f8b0b824adda66f0ab3d89685ec2ea356aabc22dacdfd9e5665b298",
- "notes": "Sneller: ongeveer 70% minder om te tekenen, minder lag",
+ "sha256": "7670c7aa21cb4f87901489efdef96d9bbf94c7cb02e5c2fcab086e33a76c0166",
+ "notes": "Realistisch regengeluid en wheelies op de motor en scooter (Ctrl)",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.0",
  "appUrl": "https://github.com/liamdej0ng/rotterdam7/releases/download/v1.0.0/Rotterdam-VII-Setup-1.0.0.exe",
  "i18n": "https://liamdej0ng.github.io/rotterdam7/dict.json",
- "i18nVersion": "1.1.0",
- "i18nSha256": "47246326031fa39ebcbbbf4502cb0d11530748c2278fea542e52872b71ffae4c"
+ "i18nVersion": "1.1.1",
+ "i18nSha256": "3fba62c1dbc586a01f52be80e056ed731e697105173c854d800b21152f777fbd"
 }
