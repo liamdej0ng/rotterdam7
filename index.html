@@ -90,6 +90,16 @@ footer b{display:block;font-size:17px;letter-spacing:.04em}
 .dev{display:inline-block;margin-top:10px;padding:4px 14px;border-radius:999px;background:rgba(255,210,58,.12);border:1px solid var(--gold);color:var(--gold);font:800 12px Inter;letter-spacing:.18em;text-transform:uppercase}
 footer p{max-width:520px;margin:14px auto 0;font-size:14px;opacity:.6}
 footer small{display:block;margin-top:24px;opacity:.4;font-size:12px}
+.upd .cd{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 10px}
+.upd .cd div{min-width:96px;padding:18px 10px 12px;border-radius:16px;text-align:center;background:linear-gradient(160deg,rgba(255,210,58,.16),rgba(255,79,139,.08));border:1px solid rgba(255,210,58,.45)}
+.upd .cd b{display:block;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(40px,6vw,64px);line-height:1;color:var(--gold)}
+.upd .cd span{font:800 11px Inter;letter-spacing:.25em;text-transform:uppercase;opacity:.75}
+.upd .when{font:800 15px Inter;letter-spacing:.06em;opacity:.85;margin-bottom:26px}.upd .live{font:800 22px Inter;color:var(--gold);margin:24px 0}
+.upd .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;margin-top:10px}@media(max-width:860px){.upd .grid{grid-template-columns:1fr}}
+.upd .card{padding:28px;border-radius:18px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08)}
+.upd .card h3{font:800 18px Inter;letter-spacing:.04em;margin-bottom:4px}.upd .card .v{font:800 12px Inter;letter-spacing:.2em;color:var(--pink);text-transform:uppercase;margin-bottom:14px}
+.upd ul{list-style:none;padding:0;margin:0}.upd li{padding:9px 0 9px 30px;position:relative;font-size:15px;border-bottom:1px solid rgba(255,255,255,.06)}.upd li:last-child{border:0}
+.upd li:before{content:'✦';position:absolute;left:4px;color:var(--gold)}.upd .old li:before{content:'✓';color:#5cf08a}.upd .old h4{font:800 13px Inter;letter-spacing:.15em;margin:16px 0 4px;color:var(--gold)}.upd .old h4:first-of-type{margin-top:0}.upd .old h4 small{opacity:.6;font-weight:600;letter-spacing:.05em;margin-left:8px}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s}.rv.in{opacity:1;transform:none}
 .modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:4vw}.modal.on{display:flex}
 .modal video{width:min(1400px,100%);border-radius:12px}
@@ -155,7 +165,7 @@ footer small{display:block;margin-top:24px;opacity:.4;font-size:12px}
 <body>
 <nav id="nav">
   <a class="brand" href="#top">ROTTERDAM <span>VII</span></a>
-  <div class="links"><a href="#trailer" data-t="navTrailer"></a><a href="#verhaal" data-t="navStory"></a><a href="#personages" data-t="navChars"></a><a href="#stad" data-t="navCity"></a><a href="#features" data-t="navFeat"></a></div>
+  <div class="links"><a href="#trailer" data-t="navTrailer"></a><a href="#verhaal" data-t="navStory"></a><a href="#personages" data-t="navChars"></a><a href="#stad" data-t="navCity"></a><a href="#features" data-t="navFeat"></a><a href="#updates" data-t="navUpd"></a></div>
   <div class="langs"><button data-l="nl">NL</button><button data-l="en">EN</button><button data-l="de">DE</button></div>
   <a class="btn gold dl" href="#download" data-t="navDl"></a>
 </nav>
@@ -241,6 +251,11 @@ footer small{display:block;margin-top:24px;opacity:.4;font-size:12px}
     <div class="feat rv"><i>🌍</i><h3 data-t="f6"></h3><p data-t="f6p"></p></div>
   </div>
 </section>
+<section id="updates" class="upd">
+  <div class="kicker rv" data-t="uK"></div>
+  <h2 class="display rv" data-t="uH"></h2>
+  <div id="updbox" class="rv"></div>
+</section>
 <section id="unreal">
   <div class="kicker rv" data-t="ueK"></div>
   <h2 class="display rv">Unreal Engine <span style="color:var(--gold)">5</span></h2>
@@ -294,7 +309,7 @@ nl:{ueNote:'De releasedatum is onder voorbehoud en kan worden gewijzigd. Updates
  dK:'Download',dH:'Speel het nu',dlWin:'⬇ Download voor Windows',ver:'Versie ',
  steps:'Dubbelklik op het bestand. Krijg je een blauwe melding? Klik op <b>Meer info</b> → <b>Toch uitvoeren</b>. Rotterdam VII installeert zichzelf en zet een snelkoppeling op je bureaublad. Updates komen daarna vanzelf binnen.',
  reqGpu:'Elke moderne pc',disc:'Join de Discord voor updates, tips en om samen te spelen!',
- ea:'Rotterdam VII is nog in Early Access. Er wordt elke dag aan gewerkt om het spel helemaal af en goed te maken. Kom je een fout tegen? Laat het weten in de Discord!',rights:'Alle rechten voorbehouden'},
+ ea:'Rotterdam VII is nog in Early Access. Er wordt elke dag aan gewerkt om het spel helemaal af en goed te maken. Kom je een fout tegen? Laat het weten in de Discord!',rights:'Alle rechten voorbehouden',navUpd:'Updates',uK:'Updates',uH:'De volgende update',uD:'dagen',uU:'uur',uM:'min',uS:'sec',uWhen:'Verwacht op',uLive:'🎉 De update is er! Start de game om hem te krijgen.',uNew:'Wat komt erin',uOld:'Eerdere updates'},
 en:{ueNote:'The release date is subject to change. Release updates will be shared on our Discord.',ueFull:'Full release',ueFullD:'mid 2029 – early 2030',ueK:'What’s next',ueBadge:'In development',ue:'Liam & Tim are rebuilding Rotterdam VII in Unreal Engine 5. With realistic graphics, the same characters and the story of container VII-007. The current version stays playable and keeps getting updates.',ue1:'Realistic characters',ue1p:'Barry, Bella and the rest, rebuilt as real people.',ue2:'A living city',ue2p:'Realistic lighting, weather and day and night.',ue3:'The same story',ue3p:'Container VII-007, 24 missions and your choice in the finale.',ue4:'Keep playing',ue4p:'Today’s version stays available to download here.',navStory:'Story',verK:'The story',verIntro:'One rainy evening, container VII-007 vanishes from a secure harbour. According to the authorities it’s an administrative error. In reality it holds secret documents, millions in dirty money and proof of corruption in the city government. And the disappearance ties together eight Rotterdammers who all have something to hide.',
  a1T:'Disappearance',a1:'Ome Kees recognises the traces of his old network. Barry gets a suspicious demolition job, Farmer Gerrit drove part of the transport and Henk the herring man ends up with a memory stick. Coincidence? No way.',
  a2T:'Everyone has something to hide',a2:'Bella smells her big chance. Fenna maps out the corrupt network. Officer Bram discovers the police themselves are involved, and enforcement officer Ilse spots something off during a routine check.',
@@ -314,7 +329,7 @@ en:{ueNote:'The release date is subject to change. Release updates will be share
  dK:'Download',dH:'Play it now',dlWin:'⬇ Download for Windows',ver:'Version ',
  steps:'Double-click the file. Get a blue warning? Click <b>More info</b> → <b>Run anyway</b>. Rotterdam VII installs itself and puts a shortcut on your desktop. Updates arrive automatically after that.',
  reqGpu:'Any modern PC',disc:'Join the Discord for updates, tips and to play together!',
- ea:'Rotterdam VII is still in Early Access. We work on it every day to make the game complete and polished. Found a bug? Let us know on Discord!',rights:'All rights reserved'},
+ ea:'Rotterdam VII is still in Early Access. We work on it every day to make the game complete and polished. Found a bug? Let us know on Discord!',rights:'All rights reserved',navUpd:'Updates',uK:'Updates',uH:'The next update',uD:'days',uU:'hours',uM:'min',uS:'sec',uWhen:'Expected on',uLive:'🎉 The update is here! Start the game to get it.',uNew:'What’s coming',uOld:'Earlier updates'},
 de:{ueNote:'Das Release-Datum ist vorläufig und kann sich ändern. Updates zum Release teilen wir auf unserem Discord.',ueFull:'Vollversion',ueFullD:'Mitte 2029 – Anfang 2030',ueK:'Was kommt',ueBadge:'In Entwicklung',ue:'Liam & Tim bauen Rotterdam VII neu in der Unreal Engine 5. Mit realistischer Grafik, denselben Figuren und der Story um Container VII-007. Die aktuelle Version bleibt spielbar und bekommt weiter Updates.',ue1:'Realistische Figuren',ue1p:'Barry, Bella und die anderen, nachgebaut als echte Menschen.',ue2:'Eine lebendige Stadt',ue2p:'Realistisches Licht, Wetter sowie Tag und Nacht.',ue3:'Dieselbe Story',ue3p:'Container VII-007, 24 Missionen und deine Wahl im Finale.',ue4:'Weiterspielen',ue4p:'Die aktuelle Version bleibt hier zum Download.',navStory:'Story',verK:'Die Story',verIntro:'An einem regnerischen Abend verschwindet Container VII-007 aus einem gesicherten Hafen. Laut den Behörden ein Verwaltungsfehler. In Wahrheit enthält er geheime Dokumente, Millionen an Schwarzgeld und Beweise für Korruption in der Stadtverwaltung. Und das Verschwinden verbindet acht Rotterdamer, die alle etwas zu verbergen haben.',
  a1T:'Verschwinden',a1:'Ome Kees erkennt die Spuren seines alten Netzwerks. Barry bekommt einen verdächtigen Abrissauftrag, Bauer Gerrit fuhr einen Teil des Transports und Heringsmann Henk bekommt einen USB-Stick in die Hände. Zufall? Niemals.',
  a2T:'Jeder hat etwas zu verbergen',a2:'Bella wittert ihre große Chance. Fenna deckt das korrupte Netzwerk auf. Polizist Bram entdeckt, dass die Polizei selbst beteiligt ist, und Ordnungshüterin Ilse sieht bei einer normalen Kontrolle etwas, das nicht stimmt.',
@@ -334,12 +349,25 @@ de:{ueNote:'Das Release-Datum ist vorläufig und kann sich ändern. Updates zum 
  dK:'Download',dH:'Jetzt spielen',dlWin:'⬇ Download für Windows',ver:'Version ',
  steps:'Doppelklicke auf die Datei. Kommt eine blaue Warnung? Klick auf <b>Weitere Informationen</b> → <b>Trotzdem ausführen</b>. Rotterdam VII installiert sich selbst und legt eine Verknüpfung auf deinem Desktop an. Updates kommen danach automatisch.',
  reqGpu:'Jeder moderne PC',disc:'Tritt dem Discord bei für Updates, Tipps und um zusammen zu spielen!',
- ea:'Rotterdam VII ist noch im Early Access. Es wird jeden Tag daran gearbeitet, das Spiel komplett und richtig gut zu machen. Einen Fehler gefunden? Sag es uns im Discord!',rights:'Alle Rechte vorbehalten'}};
+ ea:'Rotterdam VII ist noch im Early Access. Es wird jeden Tag daran gearbeitet, das Spiel komplett und richtig gut zu machen. Einen Fehler gefunden? Sag es uns im Discord!',rights:'Alle Rechte vorbehalten',navUpd:'Updates',uK:'Updates',uH:'Das nächste Update',uD:'Tage',uU:'Std',uM:'Min',uS:'Sek',uWhen:'Erwartet am',uLive:'🎉 Das Update ist da! Starte das Spiel, um es zu bekommen.',uNew:'Was kommt',uOld:'Frühere Updates'}};
 let L;try{L=localStorage.getItem('r7lang')}catch(e){}L=(L||navigator.language||'nl').slice(0,2);if(!T[L])L='en';let ver='';
 function show(){const t=T[L];document.documentElement.lang=L;
  document.querySelectorAll('[data-t]').forEach(e=>{const v=t[e.dataset.t];if(v!=null)e.innerHTML=v;});
  document.getElementById('ver').textContent=ver?t.ver+ver+' · Early Access':'';
- document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));renderCast();}
+ document.querySelectorAll('.langs button').forEach(b=>b.classList.toggle('on',b.dataset.l===L));renderCast();renderUpd();}
+// ---- updates + countdown (tekst komt uit updates.json) ----
+let UPD=null;const tx=v=>v==null?'':typeof v==='string'?v:(v[L]||v.nl||v.en||'');
+function renderUpd(){const b=document.getElementById('updbox');if(!b||!UPD)return;const t=T[L],n=UPD.volgende||{},when=n.datum?new Date(n.datum):null;
+ const loc={nl:'nl-NL',en:'en-GB',de:'de-DE'}[L];const li=a=>(a||[]).map(p=>'<li>'+esc(tx(p))+'</li>').join('');
+ b.innerHTML=(when?'<div class="cd" id="cd">'+['uD','uU','uM','uS'].map(k=>'<div><b data-cd="'+k+'">00</b><span>'+t[k]+'</span></div>').join('')+'</div><div class="when">'+t.uWhen+' '+when.toLocaleString(loc,{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})+'</div>':'')
+  +'<div class="grid"><div class="card"><div class="v">'+t.uNew+(n.versie?' · v'+esc(n.versie):'')+'</div><h3>'+esc(tx(n.titel))+'</h3><ul>'+li(n.punten)+'</ul></div>'
+  +'<div class="card old"><div class="v">'+t.uOld+'</div>'+(UPD.eerder||[]).map(u=>'<h4>v'+esc(u.versie)+(u.datum?'<small>'+new Date(u.datum).toLocaleDateString(loc,{day:'numeric',month:'long'})+'</small>':'')+'</h4><ul>'+li(u.punten)+'</ul>').join('')+'</div></div>';
+ tickUpd();}
+function tickUpd(){const n=UPD&&UPD.volgende;if(!n||!n.datum)return;const cd=document.getElementById('cd');if(!cd)return;let s=Math.max(0,Math.floor((new Date(n.datum)-Date.now())/1000));
+ if(s<=0){cd.outerHTML='<div class="live">'+T[L].uLive+'</div>';return;}const v={uD:Math.floor(s/86400),uU:Math.floor(s/3600)%24,uM:Math.floor(s/60)%60,uS:s%60};
+ for(const k in v){const e=cd.querySelector('[data-cd="'+k+'"]');if(e)e.textContent=String(v[k]).padStart(2,'0');}}
+setInterval(tickUpd,1000);
+fetch('updates.json?t='+Date.now()).then(r=>r.json()).then(j=>{UPD=j;renderUpd();}).catch(()=>{const s=document.getElementById('updates');if(s)s.style.display='none';});
 const IMG=f=>'media/characters/'+encodeURIComponent(f);
 const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function renderCast(){const g=document.getElementById('castgrid');if(!g||!window.R7_CHARS)return;const t=T[L];

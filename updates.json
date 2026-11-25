@@ -1,0 +1,124 @@
+{
+ "_uitleg": "Pas dit bestand aan om de updates op de website te veranderen. 'datum' = wanneer de volgende update komt (jaar-maand-dagTuur:minuut). Schrijf de punten gewoon in het Nederlands; Engels en Duits mag, hoeft niet.",
+ "volgende": {
+  "versie": "1.2.0",
+  "datum": "2026-11-25T20:00",
+  "titel": {
+   "nl": "🎄 De grote kerstupdate",
+   "en": "🎄 The big Christmas update",
+   "de": "🎄 Das große Weihnachtsupdate"
+  },
+  "punten": [
+   {
+    "nl": "Heel Rotterdam in kerstsfeer: lichtjes, kerstbomen en een feestelijk beginmenu",
+    "en": "All of Rotterdam in Christmas spirit: lights, Christmas trees and a festive start menu",
+    "de": "Ganz Rotterdam in Weihnachtsstimmung: Lichter, Weihnachtsbäume und ein festliches Startmenü"
+   },
+   {
+    "nl": "Echte sneeuw die blijft liggen: wegen worden glad en het water bevriest",
+    "en": "Real snow that settles: roads get slippery and the water freezes",
+    "de": "Echter Schnee, der liegen bleibt: Straßen werden glatt und das Wasser friert zu"
+   },
+   {
+    "nl": "Realistischer weer en water, met motregen, buien en windvlagen",
+    "en": "More realistic weather and water, with drizzle, showers and gusts of wind",
+    "de": "Realistischeres Wetter und Wasser, mit Nieselregen, Schauern und Windböen"
+   },
+   {
+    "nl": "Je eigen garage naast je huis: zet een auto op je naam en laat hem daar verschijnen",
+    "en": "Your own garage next to your house: put a car in your name and spawn it there",
+    "de": "Deine eigene Garage neben deinem Haus: Melde ein Auto auf deinen Namen an und lass es dort erscheinen"
+   },
+   {
+    "nl": "Nieuwe wapenwinkel, en veel minder spullen die zomaar op straat liggen",
+    "en": "New weapon shop, and far fewer items lying around on the street",
+    "de": "Neuer Waffenladen und viel weniger Zeug, das einfach auf der Straße liegt"
+   },
+   {
+    "nl": "Eerste persoon en een betere loopanimatie",
+    "en": "First person and a better walking animation",
+    "de": "Ego-Perspektive und eine bessere Laufanimation"
+   },
+   {
+    "nl": "Wheelie op de scooter en motor: houd Ctrl ingedrukt",
+    "en": "Wheelies on the scooter and motorbike: hold Ctrl",
+    "de": "Wheelies auf Roller und Motorrad: Strg gedrückt halten"
+   },
+   {
+    "nl": "Radio kan nu helemaal uit",
+    "en": "The radio can now be switched off completely",
+    "de": "Das Radio lässt sich jetzt ganz ausschalten"
+   },
+   {
+    "nl": "Energiedrank geeft je conditie terug, en je conditie gaat minder snel omlaag",
+    "en": "Energy drinks restore your stamina, and stamina drains more slowly",
+    "de": "Energydrinks füllen deine Ausdauer auf, und die Ausdauer sinkt langsamer"
+   },
+   {
+    "nl": "Graphics: Laag voor veel fps, Max voor de allerbeste kwaliteit, en alles ziet er goed uit",
+    "en": "Graphics: Low for high fps, Max for the very best quality, and everything looks good",
+    "de": "Grafik: Niedrig für viele FPS, Max für die allerbeste Qualität, und alles sieht gut aus"
+   },
+   {
+    "nl": "De stad wordt groter: 4 nieuwe wijken in het midden en 2 bij de snelweg, met meer wegen die mooi op elkaar aansluiten",
+    "en": "The city grows: 4 new neighbourhoods in the middle and 2 by the motorway, with more roads that connect properly",
+    "de": "Die Stadt wächst: 4 neue Viertel in der Mitte und 2 an der Autobahn, mit mehr Straßen, die sauber verbunden sind"
+   },
+   {
+    "nl": "Landmarks om in te gaan: met de lift de Maastoren op, de Marktboog in en over de loopbrug bij de Kantelhuizen",
+    "en": "Landmarks to explore: take the lift up the Maastoren, walk into the Marktboog and across the walkway at the Kantelhuizen",
+    "de": "Sehenswürdigkeiten zum Betreten: mit dem Aufzug auf den Maastoren, in den Marktboog und über die Brücke bei den Kantelhuizen"
+   },
+   {
+    "nl": "Mooiere winkels met meer decoratie en nieuwe borden, en meer details in huizen",
+    "en": "Nicer shops with more decoration and new signs, and more detail in houses",
+    "de": "Schönere Läden mit mehr Deko und neuen Schildern, und mehr Details in Häusern"
+   },
+   {
+    "nl": "Auto's gaan minder snel kapot, in brand of de lucht in, en de politie komt minder snel",
+    "en": "Cars break, catch fire and explode less quickly, and the police come less quickly",
+    "de": "Autos gehen nicht mehr so schnell kaputt, in Flammen oder in die Luft, und die Polizei kommt nicht mehr so schnell"
+   },
+   {
+    "nl": "Opgelost: wegen die in grijze vlakken zakken, viaductpalen op de weg, onzichtbare muurtjes bij kruispunten en te hard regengeluid",
+    "en": "Fixed: roads sinking into grey slabs, overpass pillars on the road, invisible walls at junctions and rain that was too loud",
+    "de": "Behoben: Straßen, die in graue Flächen einsinken, Brückenpfeiler auf der Straße, unsichtbare Wände an Kreuzungen und zu lauter Regen"
+   }
+  ]
+ },
+ "eerder": [
+  {
+   "versie": "1.1.1",
+   "datum": "2026-11-23",
+   "punten": [
+    {
+     "nl": "Veel minder lag: de stad wordt alleen getekend waar je kijkt",
+     "en": "Much less lag: the city is only drawn where you look",
+     "de": "Viel weniger Ruckeln: Die Stadt wird nur dort gezeichnet, wo du hinschaust"
+    }
+   ]
+  },
+  {
+   "versie": "1.1.0",
+   "datum": "2026-11-23",
+   "punten": [
+    {
+     "nl": "Verhaal VII-007: 8 personages, 24 missies en een finale met 2 eindes",
+     "en": "Story VII-007: 8 characters, 24 missions and a finale with 2 endings",
+     "de": "Story VII-007: 8 Figuren, 24 Missionen und ein Finale mit 2 Enden"
+    }
+   ]
+  },
+  {
+   "versie": "1.0.0",
+   "datum": "2026-11-22",
+   "punten": [
+    {
+     "nl": "Eerste versie: Windows-app met automatische updates, in het Nederlands, Engels en Duits",
+     "en": "First version: Windows app with automatic updates, in Dutch, English and German",
+     "de": "Erste Version: Windows-App mit automatischen Updates, auf Niederländisch, Englisch und Deutsch"
+    }
+   ]
+  }
+ ]
+}
