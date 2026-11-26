@@ -1,15 +1,5 @@
 {
- "_uitleg": "Pas dit bestand aan om de updates op de website te veranderen. 'datum' = wanneer de volgende update komt (jaar-maand-dagTuur:minuut). Schrijf de punten gewoon in het Nederlands; Engels en Duits mag, hoeft niet.",
- "volgende": {
-  "versie": "",
-  "datum": "2026-11-26T11:00",
-  "titel": {
-   "nl": "Er komt weer iets nieuws aan!",
-   "en": "Something new is on its way!",
-   "de": "Bald gibt es wieder etwas Neues!"
-  },
-  "punten": []
- },
+ "_uitleg": "Pas dit bestand aan om de updates op de website te veranderen. Zet een nieuwe update bovenaan in 'eerder'. Optioneel: 'volgende' (versie, titel, punten) voor een 'Binnenkort'-kaart. 'afbeelding' = plaatje uit de map media.",
  "eerder": [
   {
    "versie": "1.2.0",
@@ -95,7 +85,8 @@
      "en": "Fixed: roads sinking into grey slabs, overpass pillars on the road, invisible walls at junctions and rain that was too loud",
      "de": "Behoben: Straßen, die in graue Flächen einsinken, Brückenpfeiler auf der Straße, unsichtbare Wände an Kreuzungen und zu lauter Regen"
     }
-   ]
+   ],
+   "afbeelding": "media/nacht.jpg"
   },
   {
    "versie": "1.1.2",
