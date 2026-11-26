@@ -91,7 +91,7 @@ async function add(){const n=$('pname').value.trim();if(!n){msg('Typ eerst een n
   if(p){sel=p.name;S.last=sel;saveS();}$('pname').value='';try{render();}catch(e){}msg(p?'Welkom, '+p.name+'!':'Speler toegevoegd.');}
 async function pollUpd(){for(let i=0;i<40;i++){const st=await api('/api/status').catch(()=>null);if(!st)return;const u=st.update||{};
   if(u.state==='bijgewerkt'){$('ver').textContent='LAUNCHER '+st.version+' · SPEL '+st.game+' · ✨ NET BIJGEWERKT';msg('Update geïnstalleerd: versie '+st.game+(u.notes?' – '+u.notes:''));return;}
-  if(u.launcher){msg(u.auto?'Nieuwe app-versie '+u.launcher+' wordt gedownload en bij afsluiten geïnstalleerd.':'Er is een nieuwe app-versie ('+u.launcher+'). Download hem via liamdej0ng.github.io/rotterdam7');}
+  if(u.launcher){msg(u.auto?'Nieuwe versie '+u.launcher+' wordt bijgewerkt, de app start zo vanzelf opnieuw.':'Er is een nieuwe app-versie ('+u.launcher+'). Download hem via liamdej0ng.github.io/rotterdam7');}
   if(u.state!=='zoeken')return;await new Promise(r=>setTimeout(r,1500));}}
 async function play(){
   if(!sel){if(!P.length){$('pname').value=$('pname').value||'Speler';await add();}if(!sel)return;}const p=P.find(x=>x.name===sel);$('load').classList.add('on');$('ltxt').textContent='Spel laden…';

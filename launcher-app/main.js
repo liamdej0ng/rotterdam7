@@ -112,7 +112,7 @@ async function checkGameUpdate() {
     if (!r.ok) throw new Error('update.json ' + r.status);
     const u = await r.json();
     if (u.discordAppId) RPC.setId(String(u.discordAppId));
-    if (u.app && newer(u.app, app.getVersion())) U.launcher = u.app; // 'launcher' is van de oude Rotterdam-VII.exe
+    if (u.app && newer(u.app, app.getVersion()) && !app.isPackaged) U.launcher = u.app; // app-updates gaan vanzelf via autoUpdater
     const cur = cachedGame().version;
     if (u.version && u.game && newer(u.version, cur)) {
       const g = await net.fetch(u.game + '?v=' + encodeURIComponent(u.version), { cache: 'no-store' });
@@ -151,7 +151,14 @@ function checkAppUpdate() {
     autoUpdater.autoInstallOnAppQuit = true;
     autoUpdater.logger = { info: m => log('updater', m), warn: m => log('updater', m), error: m => log('updater', m), debug() {} };
     autoUpdater.on('update-available', i => { U.launcher = i.version; U.auto = true; });
+    autoUpdater.on('update-downloaded', () => {
+      // Stil installeren en meteen herstarten, tenzij iemand midden in het spel zit: dan bij afsluiten.
+      const inGame = () => win && !win.isDestroyed() && /\/game/.test(win.webContents.getURL());
+      const go = () => { if (inGame()) return setTimeout(go, 30000); setImmediate(() => autoUpdater.quitAndInstall(true, true)); };
+      go();
+    });
     autoUpdater.on('error', e => log('app-update:', e && e.message));
+    setInterval(() => autoUpdater.checkForUpdates().catch(() => {}), 30 * 60000);
     autoUpdater.checkForUpdates().catch(e => log('app-update:', e && e.message));
   } catch (e) { log('app-update:', e.message); }
 }
