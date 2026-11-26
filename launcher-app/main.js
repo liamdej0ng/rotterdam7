@@ -294,25 +294,16 @@ const RPC = {
     s.on('error', () => { if (!this.sock && i < 9) this.connect(i + 1); else this.retry(); });
     s.on('close', () => { if (this.sock === s) { this.close(); this.retry(); } });
   },
-  retry() { clearTimeout(this.retryT); this.retryT = setTimeout(() => { this.sock = null; this.connect(); }, 20000); },
-  async tick() {
-    if (!this.ready || !this.sock || !win) return;
-    let st = null;
-    try { st = await win.webContents.executeJavaScript(`(()=>{try{const g=window.GAME;if(!g||!g.started||!g.player)return {menu:true};const p=g.player.pos,w=(g.world.wijken||[]).find(q=>Math.hypot(q.x-p.x,q.z-p.z)<q.r);let z='';try{z=g.world.zoneOf(p.x,p.z)}catch(e){}return {drv:g.driving&&g.driving.k?g.driving.k.name:null,m:g.missions&&g.missions.active&&g.missions.active.d?g.missions.active.d.name:null,stars:g.wanted?g.wanted.stars|0:0,who:g.pi===1?'Bella':'Barry',zone:w?w.name:z,menu:false}}catch(e){return null}})()`, true); } catch (e) {}
-    const Z = { centrum: 'Centrum', stad: 'De stad', woon: 'Woonwijk', heuvel: 'De Heuvel', villa: 'Villapark', industrie: 'De haven', park: 'Het park', platteland: 'Buiten de stad', water: 'Op het water' };
-    let details = 'In het menu', state = 'Kerstupdate · Made by Liam & Tim';
-    if (st && !st.menu) {
-      details = st.m ? 'Missie: ' + st.m : st.drv ? 'Rijdt in een ' + st.drv : 'Loopt door Rotterdam';
-      state = (st.who || 'Barry') + ' · ' + (Z[st.zone] || st.zone || 'Rotterdam') + (st.stars ? ' · ' + '★'.repeat(st.stars) + ' gezocht' : '');
-    }
-    const activity = { details: details.slice(0, 128), state: state.slice(0, 128), timestamps: { start: this.start },
-      assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/poster.jpg', large_text: 'Rotterdam VII', small_image: 'https://liamdej0ng.github.io/rotterdam7/favicon.png', small_text: 'Made by Liam & Tim' },
-      buttons: [{ label: 'Speel Rotterdam VII', url: 'https://liamdej0ng.github.io/rotterdam7/' }, { label: 'Discord-server', url: DISCORD }] };
+  retry() { clearTimeout(this.retryT); this.retryT = setTimeout(() => { this.sock = null; this.connect(); }, 5000); },
+  tick() {
+    if (!this.ready || !this.sock) return;
+    const activity = { timestamps: { start: this.start }, assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/poster.jpg', large_text: 'Rotterdam VII' } };
     const key = JSON.stringify(activity); if (key === this.last) return; this.last = key;
     try { this.sock.write(this.frame(1, { cmd: 'SET_ACTIVITY', args: { pid: process.pid, activity }, nonce: String(++this.nonce) })); } catch (e) { this.close(); this.retry(); }
   }
 };
 setInterval(() => RPC.tick(), 15000);
+RPC.setId('1575432127783243929'); // direct bij opstarten, update.json kan het later nog aanpassen
 
 app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 app.on('window-all-closed', () => app.quit());
