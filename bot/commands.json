@@ -1,0 +1,5 @@
+[
+  {"name": "stats", "description": "Hoe vaak is Rotterdam VII gedownload?", "type": 1},
+  {"name": "versie", "description": "Wat is de nieuwste versie van Rotterdam VII en wat is er nieuw?", "type": 1},
+  {"name": "tip", "description": "Een willekeurige tip voor Rotterdam VII", "type": 1}
+]

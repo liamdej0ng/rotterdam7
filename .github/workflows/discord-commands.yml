@@ -1,0 +1,23 @@
+name: Bot-commando's registreren
+# Registreert /stats, /versie en /tip bij de Discord-app "Rotterdam VII".
+# Eenmalig handmatig starten (Actions > Bot-commando's registreren > Run workflow).
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['bot/commands.json']
+
+jobs:
+  registreer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Commando's naar Discord sturen
+        env:
+          TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "Geen DISCORD_BOT_TOKEN-secret ingesteld."; exit 0; fi
+          curl -sS --fail-with-body -X PUT \
+            -H "Authorization: Bot $TOKEN" -H "Content-Type: application/json" \
+            -d @bot/commands.json \
+            https://discord.com/api/v10/applications/1575432127783243929/commands
