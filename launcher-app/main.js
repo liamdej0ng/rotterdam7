@@ -111,6 +111,7 @@ async function checkGameUpdate() {
     const r = await net.fetch(UPDATE_URL + '?t=' + Date.now(), { cache: 'no-store' });
     if (!r.ok) throw new Error('update.json ' + r.status);
     const u = await r.json();
+    if (u.discordAppId) RPC.setId(String(u.discordAppId));
     if (u.app && newer(u.app, app.getVersion())) U.launcher = u.app; // 'launcher' is van de oude Rotterdam-VII.exe
     const cur = cachedGame().version;
     if (u.version && u.game && newer(u.version, cur)) {
@@ -276,6 +277,42 @@ function createWindow() {
   win.webContents.on('render-process-gone', (e, d) => { log('renderer weg:', d.reason); if (d.reason !== 'clean-exit') win.loadURL(ORIGIN + '/?lang=' + S.lang); });
   win.loadURL(ORIGIN + '/?lang=' + S.lang);
 }
+
+/* ---------- Discord-status: iedereen die speelt krijgt "Speelt Rotterdam VII" onder zijn naam ---------- */
+// Werkt via Discord Rich Presence (lokale Discord-app). Het ID van de Discord-app "Rotterdam VII" komt uit update.json (discordAppId).
+const RPC = {
+  id: '', sock: null, ready: false, start: Math.floor(Date.now() / 1000), last: '', retryT: null, nonce: 0,
+  setId(id) { if (!/^\d{15,22}$/.test(id) || id === this.id) return; this.id = id; this.close(); this.connect(); },
+  frame(op, obj) { const j = Buffer.from(JSON.stringify(obj), 'utf8'), h = Buffer.alloc(8); h.writeInt32LE(op, 0); h.writeInt32LE(j.length, 4); return Buffer.concat([h, j]); },
+  close() { this.ready = false; this.last = ''; if (this.sock) { try { this.sock.destroy(); } catch (e) {} } this.sock = null; },
+  connect(i = 0) {
+    if (!this.id || this.sock) return;
+    const base = process.platform === 'win32' ? '\\\\?\\pipe\\discord-ipc-' : path.join(process.env.XDG_RUNTIME_DIR || process.env.TMPDIR || '/tmp', 'discord-ipc-');
+    const s = require('net').createConnection(base + i);
+    s.once('connect', () => { this.sock = s; s.write(this.frame(0, { v: 1, client_id: this.id })); });
+    s.on('data', d => { try { if (d.length >= 8 && d.readInt32LE(0) === 1) { const m = JSON.parse(d.slice(8, 8 + d.readInt32LE(4)).toString()); if (m.evt === 'READY') { this.ready = true; this.last = ''; this.tick(); } } } catch (e) {} });
+    s.on('error', () => { if (!this.sock && i < 9) this.connect(i + 1); else this.retry(); });
+    s.on('close', () => { if (this.sock === s) { this.close(); this.retry(); } });
+  },
+  retry() { clearTimeout(this.retryT); this.retryT = setTimeout(() => { this.sock = null; this.connect(); }, 20000); },
+  async tick() {
+    if (!this.ready || !this.sock || !win) return;
+    let st = null;
+    try { st = await win.webContents.executeJavaScript(`(()=>{try{const g=window.GAME;if(!g||!g.started||!g.player)return {menu:true};const p=g.player.pos,w=(g.world.wijken||[]).find(q=>Math.hypot(q.x-p.x,q.z-p.z)<q.r);let z='';try{z=g.world.zoneOf(p.x,p.z)}catch(e){}return {drv:g.driving&&g.driving.k?g.driving.k.name:null,m:g.missions&&g.missions.active&&g.missions.active.d?g.missions.active.d.name:null,stars:g.wanted?g.wanted.stars|0:0,who:g.pi===1?'Bella':'Barry',zone:w?w.name:z,menu:false}}catch(e){return null}})()`, true); } catch (e) {}
+    const Z = { centrum: 'Centrum', stad: 'De stad', woon: 'Woonwijk', heuvel: 'De Heuvel', villa: 'Villapark', industrie: 'De haven', park: 'Het park', platteland: 'Buiten de stad', water: 'Op het water' };
+    let details = 'In het menu', state = 'Kerstupdate · Made by Liam & Tim';
+    if (st && !st.menu) {
+      details = st.m ? 'Missie: ' + st.m : st.drv ? 'Rijdt in een ' + st.drv : 'Loopt door Rotterdam';
+      state = (st.who || 'Barry') + ' · ' + (Z[st.zone] || st.zone || 'Rotterdam') + (st.stars ? ' · ' + '★'.repeat(st.stars) + ' gezocht' : '');
+    }
+    const activity = { details: details.slice(0, 128), state: state.slice(0, 128), timestamps: { start: this.start },
+      assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/poster.jpg', large_text: 'Rotterdam VII', small_image: 'https://liamdej0ng.github.io/rotterdam7/favicon.png', small_text: 'Made by Liam & Tim' },
+      buttons: [{ label: 'Speel Rotterdam VII', url: 'https://liamdej0ng.github.io/rotterdam7/' }, { label: 'Discord-server', url: DISCORD }] };
+    const key = JSON.stringify(activity); if (key === this.last) return; this.last = key;
+    try { this.sock.write(this.frame(1, { cmd: 'SET_ACTIVITY', args: { pid: process.pid, activity }, nonce: String(++this.nonce) })); } catch (e) { this.close(); this.retry(); }
+  }
+};
+setInterval(() => RPC.tick(), 15000);
 
 app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 app.on('window-all-closed', () => app.quit());
