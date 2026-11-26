@@ -2,7 +2,8 @@
 // Het spel draait op http://rotterdam7.local/ (alleen binnen dit venster, via een eigen protocol-handler).
 // Alle /api/-functies van de oude launcher zitten hier: spelers, saves, instellingen en updates.
 'use strict';
-const { app, BrowserWindow, Menu, session, shell, net } = require('electron');
+const { app, BrowserWindow, Menu, session, shell, net, clipboard, nativeImage } = require('electron');
+const os = require('os');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -40,7 +41,7 @@ function log(...a) {
 const cleanName = n => String(n || '').replace(/[^\w\- ]/g, '').trim().slice(0, 24);
 const saveFile = n => path.join(SAVES, cleanName(n) + '.json');
 
-const DEF_SETTINGS = { gfx: 'auto', fs: true, vol: 0.8, rvol: 0.9, last: '', lang: '' };
+const DEF_SETTINGS = { gfx: 'auto', fs: true, vol: 0.8, rvol: 0.9, last: '', lang: '', rpc: true, music: true, sfx: true, fov: 70, sens: 1, inv: false, fps: 0, keys: {}, vEff: 1, vAmb: 1, vMus: 1 };
 const LANGS = ['nl', 'en', 'de'];
 let S = { ...DEF_SETTINGS };
 let P = []; // [{name,char,created}]
@@ -81,17 +82,21 @@ function migrateOldLauncher() {
 function profileList() {
   return P.map(p => {
     const f = saveFile(p.name);
-    let has = false, story = 0, cash = 0, lastPlay = 0;
+    let has = false, story = 0, cash = 0, lastPlay = 0, st = {}, owned = 0, houses = 0, cars = 0, vii = 0, bank = 0;
     try {
-      const st = fs.statSync(f);
+      const fst = fs.statSync(f);
       const s = JSON.parse(fs.readFileSync(f, 'utf8'));
       if (s) {
-        has = true; lastPlay = Math.floor(st.mtimeMs / 1000);
+        has = true; lastPlay = Math.floor(fst.mtimeMs / 1000);
         story = +s.story || 0;
         cash = (s.slots || []).reduce((a, x) => a + (x && x.id === 'cash' ? +x.n || 0 : 0), 0);
+        bank = +s.stash || 0;
+        st = (s.st && typeof s.st === 'object') ? s.st : {};
+        owned = (s.owned || []).length; houses = (s.houses || []).length; cars = (s.cars || []).length;
+        const v = s.vii; vii = v && typeof v === 'object' ? (+v.n || +v.step || (Array.isArray(v.done) ? v.done.length : 0) || 0) : 0;
       }
     } catch (e) {}
-    return { name: p.name, char: p.char, has, story, cash, lastPlay };
+    return { name: p.name, char: p.char, created: p.created, has, story, cash, bank, lastPlay, st, owned, houses, cars, vii };
   });
 }
 
@@ -99,7 +104,7 @@ function profileList() {
 const vnum = v => String(v || '0').split('.').map(x => parseInt(x, 10) || 0);
 function newer(a, b) { const A = vnum(a), B = vnum(b); for (let i = 0; i < Math.max(A.length, B.length); i++) { if ((A[i] || 0) !== (B[i] || 0)) return (A[i] || 0) > (B[i] || 0); } return false; }
 
-const U = { state: 'zoeken', notes: '', launcher: '', auto: false };
+const U = { state: 'zoeken', notes: '', launcher: '', auto: false, latest: null };
 function cachedGame() {
   const meta = readJSON(path.join(CACHE, 'game.json'), null);
   const f = path.join(CACHE, 'game.html');
@@ -112,6 +117,7 @@ async function checkGameUpdate() {
     if (!r.ok) throw new Error('update.json ' + r.status);
     const u = await r.json();
     if (u.discordAppId) RPC.setId(String(u.discordAppId));
+    U.latest = { version: u.version, notes: u.notes || '' };
     if (u.app && newer(u.app, app.getVersion()) && !app.isPackaged) U.launcher = u.app; // app-updates gaan vanzelf via autoUpdater
     const cur = cachedGame().version;
     if (u.version && u.game && newer(u.version, cur)) {
@@ -207,9 +213,35 @@ async function handle(req) {
   switch (p) {
     case '/': case '/index.html': return htmlWithI18n(path.join(APPDIR, 'launcher.html'));
     case '/game': case '/game.html': return htmlWithI18n(cachedGame().file);
+    case '/discord-icon.png': return file(path.join(APPDIR, 'discord-icon.png'));
     case '/lib/three.min.js': return file(path.join(APPDIR, 'three.min.js'));
     case '/poster.jpg': return file(path.join(APPDIR, 'poster.jpg'));
     case '/favicon.png': case '/favicon.ico': return file(path.join(APPDIR, 'favicon.png'));
+    case '/chars.js': return file(path.join(APPDIR, 'chars.js'));
+    case '/api/news': return json(await news());
+    case '/api/discord': return json(await discordInfo());
+    case '/api/system': return json(await systemInfo());
+    case '/api/screenshots': return json(shotList());
+    case '/api/screenshot': {
+      if (m !== 'POST') return text('POST', 405);
+      const d = await req.text(), mm = /^data:image\/(jpeg|png);base64,(.+)$/.exec(d);
+      if (!mm || d.length > 40e6) return text('ongeldig', 400);
+      fs.mkdirSync(SHOTS(), { recursive: true });
+      const t = new Date(), pad = n => String(n).padStart(2, '0');
+      const name = `Rotterdam VII ${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())} ${pad(t.getHours())}.${pad(t.getMinutes())}.${pad(t.getSeconds())}.${mm[1] === 'png' ? 'png' : 'jpg'}`;
+      fs.writeFileSync(path.join(SHOTS(), name), Buffer.from(mm[2], 'base64'));
+      return text('ok');
+    }
+    case '/api/shot': { const f = shotPath(u.searchParams.get('f')); return f ? file(f) : text('Niet gevonden', 404); }
+    case '/api/shotcopy': { const f = shotPath(u.searchParams.get('f')); if (!f) return text('nee', 404); clipboard.writeImage(nativeImage.createFromPath(f)); return text('ok'); }
+    case '/api/shotdel': { const f = shotPath(u.searchParams.get('f')); if (f) { try { await shell.trashItem(f); } catch (e) {} } return json(shotList()); }
+    case '/api/shotfolder': { fs.mkdirSync(SHOTS(), { recursive: true }); const f = shotPath(u.searchParams.get('f')); if (f) shell.showItemInFolder(f); else shell.openPath(SHOTS()); return text('ok'); }
+    case '/api/bugreport': {
+      if (m !== 'POST') return text('POST', 405);
+      let b = {}; try { b = JSON.parse(await req.text()); } catch (e) {}
+      const f = await bugReport(String(b.text || '').slice(0, 4000));
+      return json({ ok: !!f, file: f ? path.basename(f) : '' });
+    }
 
     case '/api/ping': return text('ok');
     case '/api/prepare': return json({ ok: true });
@@ -223,7 +255,7 @@ async function handle(req) {
     }
     case '/api/settings':
       if (m === 'POST') {
-        try { const n = JSON.parse(await req.text()); S = { ...S, ...n }; if (!LANGS.includes(S.lang)) S.lang = 'nl'; saveSettings(); applyWindowMode(); } catch (e) { return text('ongeldig', 400); }
+        try { const n = JSON.parse(await req.text()); S = { ...S, ...n }; if (!LANGS.includes(S.lang)) S.lang = 'nl'; saveSettings(); applyWindowMode(); RPC.tick(); } catch (e) { return text('ongeldig', 400); }
         return text('ok');
       }
       return json(S);
@@ -255,7 +287,77 @@ async function handle(req) {
       try { return text(fs.readFileSync(f, 'utf8')); } catch (e) { return text('null'); }
     }
   }
+  if (p.startsWith('/media/')) {
+    const f = path.normalize(path.join(APPDIR, 'media', decodeURIComponent(p.slice(7))));
+    if (f.startsWith(path.join(APPDIR, 'media'))) return file(f);
+  }
   return text('Niet gevonden', 404);
+}
+
+/* ---------- launcher-extra's: nieuws, Discord, systeem, screenshots, bugrapport ---------- */
+const SITE = 'https://liamdej0ng.github.io/rotterdam7/';
+async function cachedFetch(url, cacheName, maxAgeMs) {
+  const cf = path.join(CACHE, cacheName), meta = readJSON(cf + '.meta', null);
+  if (meta && Date.now() - meta.t < maxAgeMs) { const v = readJSON(cf, null); if (v) return v; }
+  try {
+    const r = await net.fetch(url, { cache: 'no-store' });
+    if (!r.ok) throw new Error(String(r.status));
+    const v = await r.json(); writeJSON(cf, v); writeJSON(cf + '.meta', { t: Date.now() }); return v;
+  } catch (e) { return readJSON(cf, null); }
+}
+async function news() {
+  const n = (await cachedFetch(SITE + 'updates.json?t=' + Date.now(), 'updates.json', 10 * 60000)) || readJSON(path.join(APPDIR, 'updates.json'), null);
+  if (!U.latest) { const b = readJSON(path.join(APPDIR, 'updates.json'), null); const e = b && b.eerder && b.eerder[0]; if (e) U.latest = { version: cachedGame().version, notes: '' }; }
+  return { list: (n && Array.isArray(n.eerder)) ? n.eerder.slice(0, 30) : [], next: n && n.volgende || null, latest: U.latest };
+}
+async function discordInfo() {
+  const v = await cachedFetch('https://discord.com/api/v10/invites/GXM3Mb2TNp?with_counts=true', 'discord.json', 5 * 60000);
+  return v ? { name: v.guild && v.guild.name, members: v.approximate_member_count || 0, online: v.approximate_presence_count || 0, invite: DISCORD } : { invite: DISCORD };
+}
+let SYS = null;
+async function systemInfo() {
+  if (SYS) return SYS;
+  let gpu = '', vendor = 0;
+  try {
+    const g = await Promise.race([app.getGPUInfo('complete'), new Promise(r => setTimeout(() => r(null), 4000))]);
+    const d = g && g.gpuDevice ? (g.gpuDevice.find(x => x.active) || g.gpuDevice[0]) : null;
+    vendor = d ? d.vendorId : 0;
+    gpu = (g && g.auxAttributes && g.auxAttributes.glRenderer) || (d && (d.deviceString || d.description)) || '';
+    gpu = String(gpu).replace(/^ANGLE \(|\)$/g, '').replace(/Direct3D.*$/i, '').replace(/,\s*$/, '').trim();
+  } catch (e) {}
+  const ram = Math.round(os.totalmem() / 1073741824), cpu = (os.cpus()[0] || {}).model || '', cores = os.cpus().length;
+  const discrete = vendor === 0x10de || vendor === 0x1002 || /nvidia|geforce|rtx|gtx|radeon rx/i.test(gpu);
+  const rec = discrete && ram >= 12 ? 'hoog' : (discrete || ram >= 12) ? 'middel' : 'laag';
+  SYS = { gpu: gpu || 'Onbekend', cpu: cpu.trim(), cores, ram, os: os.release(), rec, app: app.getVersion(), game: cachedGame().version };
+  return SYS;
+}
+const SHOTS = () => path.join(app.getPath('pictures'), 'Rotterdam VII');
+function shotList() {
+  try {
+    return fs.readdirSync(SHOTS()).filter(f => /\.(jpe?g|png)$/i.test(f))
+      .map(f => ({ f, t: fs.statSync(path.join(SHOTS(), f)).mtimeMs })).sort((a, b) => b.t - a.t).slice(0, 200);
+  } catch (e) { return []; }
+}
+function shotPath(n) {
+  n = String(n || ''); if (!/^[\w .\-()]+\.(jpe?g|png)$/i.test(n)) return null;
+  const f = path.join(SHOTS(), n); return fs.existsSync(f) ? f : null;
+}
+async function bugReport(txt) {
+  try {
+    const sys = await systemInfo();
+    let lg = ''; try { lg = fs.readFileSync(path.join(DATA, 'launcher.log'), 'utf8').split('\n').slice(-150).join('\n'); } catch (e) {}
+    const t = new Date(), stamp = t.toISOString().slice(0, 16).replace(/[:T]/g, '-');
+    const body = ['ROTTERDAM VII - BUGRAPPORT', 'Datum: ' + t.toLocaleString('nl-NL'), '',
+      'WAT GING ER MIS:', txt || '(niet ingevuld)', '',
+      'SYSTEEM:', 'App ' + sys.app + ' · spel ' + cachedGame().version, 'Windows ' + sys.os, 'Videokaart: ' + sys.gpu, 'Processor: ' + sys.cpu + ' (' + sys.cores + ' kernen)', 'Geheugen: ' + sys.ram + ' GB',
+      'Graphics: ' + S.gfx + ' · scherm: ' + (S.fs ? 'volledig' : 'venster'), '', 'LOGBOEK (laatste regels):', lg].join('\r\n');
+    const dir = app.getPath('desktop'), f = path.join(dir, 'Rotterdam VII bugrapport ' + stamp + '.txt');
+    fs.writeFileSync(f, body, 'utf8');
+    shell.showItemInFolder(f);
+    shell.openExternal('https://discord.com/channels/1573291662677905519/1575156457069084779');
+    log('bugrapport gemaakt', f);
+    return f;
+  } catch (e) { log('bugrapport mislukt', e.message); return null; }
 }
 
 /* ---------- venster ---------- */
@@ -304,6 +406,7 @@ const RPC = {
   retry() { clearTimeout(this.retryT); this.retryT = setTimeout(() => { this.sock = null; this.connect(); }, 5000); },
   tick() {
     if (!this.ready || !this.sock) return;
+    if (S.rpc === false) { if (this.last !== 'off') { this.last = 'off'; try { this.sock.write(this.frame(1, { cmd: 'SET_ACTIVITY', args: { pid: process.pid }, nonce: String(++this.nonce) })); } catch (e) {} } return; }
     const activity = { timestamps: { start: this.start }, assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/discord-icon.png', large_text: 'Rotterdam VII' } };
     const key = JSON.stringify(activity); if (key === this.last) return; this.last = key;
     try { this.sock.write(this.frame(1, { cmd: 'SET_ACTIVITY', args: { pid: process.pid, activity }, nonce: String(++this.nonce) })); } catch (e) { this.close(); this.retry(); }

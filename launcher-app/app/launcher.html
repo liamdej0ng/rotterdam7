@@ -1,115 +1,412 @@
 <!DOCTYPE html>
 <html lang="nl" translate="no" class="notranslate"><head><meta charset="utf-8"><meta name="google" content="notranslate"><title>Rotterdam VII</title><link rel="icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>addEventListener('contextmenu',e=>e.preventDefault());addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='f5'||k==='f12'||k==='f3'||(e.ctrlKey&&['r','p','f','u','s','g','h','j','n','t','o','+','-','=','0'].includes(k))||(e.ctrlKey&&e.shiftKey)||(e.altKey&&(k==='arrowleft'||k==='arrowright')))e.preventDefault();},true);addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault();},{passive:false});</script>
 <style>
-*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#07050b;color:#fff;font:500 15px system-ui,Segoe UI,sans-serif;user-select:none}
-.bg{position:fixed;inset:-30px;background:url(/poster.jpg) center/cover;filter:blur(14px) brightness(.45) saturate(1.2);transform:scale(1.05)}
-.shade{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(200,16,46,.25),transparent 60%),linear-gradient(90deg,rgba(5,3,8,.92) 0%,rgba(5,3,8,.55) 55%,rgba(5,3,8,.85) 100%)}
-.wrap{position:relative;height:100%;display:grid;grid-template-columns:minmax(340px,1fr) minmax(360px,520px);gap:4vw;padding:5vh 5vw}
-.logo{font:900 clamp(56px,7vw,104px)/.88 Impact,"Arial Black",sans-serif;letter-spacing:2px;text-shadow:4px 4px 0 #000}.logo span{color:#c8102e;display:block;font-size:1.3em;text-shadow:3px 3px 0 #fff,-2px -2px 0 #fff}
-.ver{opacity:.5;font-size:12px;margin-top:8px;letter-spacing:.2em}
-.left{display:flex;flex-direction:column;justify-content:space-between;min-height:0}
-.news{background:rgba(15,10,22,.7);border-left:4px solid #ffd23a;padding:16px 20px;border-radius:8px;max-width:560px}.news h3{margin:0 0 8px;color:#ffd23a;letter-spacing:.12em;font-size:13px}.news li{margin:4px 0;opacity:.9}
-.panel{background:rgba(14,10,20,.86);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;min-height:0;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-h2{margin:0;font:800 13px system-ui;letter-spacing:.2em;color:#ffd23a}
-.profiles{display:flex;flex-direction:column;gap:8px}
-.prof{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);border:2px solid transparent;cursor:pointer;transition:.15s}
-.prof:hover{background:rgba(255,255,255,.1)}.prof.sel{border-color:#ffd23a;background:rgba(255,210,58,.12)}
-.av{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:900 20px "Arial Black";color:#111;flex:none}
-.av.barry{background:#f5862a}.av.bella{background:#ff6fb5}
-.pn{flex:1;min-width:0}.pn b{display:block;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pn small{opacity:.6}
-.del{background:none;border:0;color:#fff;opacity:.35;font-size:18px;cursor:pointer;padding:4px 8px}.del:hover{opacity:1;color:#ff5a5f}
-.new{display:flex;gap:8px;flex-wrap:wrap}.new input{flex:1;min-width:140px;padding:11px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.4);color:#fff;font:600 15px system-ui;outline:none}.new input:focus{border-color:#ffd23a}
-.chars{display:flex;gap:6px}.chars button{padding:8px 12px;border-radius:8px;border:2px solid transparent;background:rgba(255,255,255,.07);color:#fff;font:700 13px system-ui;cursor:pointer}.chars button.on{border-color:#ffd23a}
-.btn{padding:11px 16px;border-radius:8px;border:0;background:rgba(255,255,255,.12);color:#fff;font:700 14px system-ui;cursor:pointer}.btn:hover{background:rgba(255,255,255,.2)}
-.play{padding:18px;border-radius:12px;border:0;background:linear-gradient(180deg,#ffd23a,#f0a81a);color:#151008;font:900 26px "Arial Black",system-ui;letter-spacing:.12em;cursor:pointer;box-shadow:0 8px 30px rgba(255,190,40,.35);transition:.15s}
-.play:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,190,40,.5)}.play:disabled{opacity:.45;cursor:default;transform:none}
-.set{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}.set label{opacity:.8}
-.seg{display:flex;background:rgba(0,0,0,.35);border-radius:8px;padding:3px;gap:3px}.seg button{flex:1;padding:7px 6px;border:0;border-radius:6px;background:none;color:#fff;font:700 12px system-ui;cursor:pointer;opacity:.7}.seg button.on{background:#ffd23a;color:#111;opacity:1}
-input[type=range]{width:100%;accent-color:#ffd23a}
-.row{display:flex;gap:8px}.row .btn{flex:1}
-.msg{min-height:20px;color:#ffd23a;font-weight:600;font-size:14px}.err{color:#ff7a7a}
-.load{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;z-index:5;font:700 18px system-ui}.load.on{display:flex}
-.bar{width:280px;height:6px;background:#222;border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;width:30%;background:#ffd23a;animation:b 1s infinite ease-in-out}@keyframes b{0%{margin-left:-30%}100%{margin-left:100%}}
-.disc{background:#5865f2}.disc:hover{background:#6d78ff}
-.keys{opacity:.55;font-size:12px;line-height:1.7}
-@media (max-width:860px){.wrap{grid-template-columns:1fr;overflow:auto}.news{display:none}}
-</style><script>addEventListener('contextmenu',e=>e.preventDefault());addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='f5'||k==='f12'||k==='f3'||(e.ctrlKey&&['r','p','f','u','s','g','h','j','n','t','o','+','-','=','0'].includes(k))||(e.ctrlKey&&e.shiftKey)||(e.altKey&&(k==='arrowleft'||k==='arrowright')))e.preventDefault();},true);addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault();},{passive:false});</script></head><body>
-<div class="bg"></div><div class="shade"></div>
-<div class="wrap">
-  <div class="left">
-    <div><div class="logo">ROTTERDAM<span>VII</span></div><div class="ver" id="ver">LAUNCHER</div></div>
-    <div class="news"><h3>NIEUW IN DEZE VERSIE</h3><ul>
-      <li>📻 Autoradio met 4 zenders en DJ's (Q)</li><li>🌧️ Weer: regen, onweer en mist</li><li>🔧 Garage: repareren, spuiten, velgen, spoiler en nitro</li>
-      <li>⭐ Verhaal: 5 missies tegen de Kaaskoning</li><li>📱 Telefoon (P): taxi, panden, missies</li><li>💇 Kapper, tattooshop, club, ziekenhuis en politiebureau</li></ul>
-      <div class="keys">WASD rijden/lopen · Muis kijken · F instappen · E actie · M kaart · P telefoon · Q radio · C wissel personage · Esc pauze</div></div>
-  </div>
-  <div class="panel">
-    <h2>SPELER</h2>
-    <div class="profiles" id="plist"></div>
-    <div class="new"><input id="pname" maxlength="24" placeholder="Nieuwe speler (naam)…"><div class="chars"><button data-c="barry" class="on">Barry</button><button data-c="bella">Bella</button></div><button class="btn" id="padd">+ Toevoegen</button></div>
-    <h2>INSTELLINGEN</h2>
-    <div class="set">
-      <label>Taal</label><div class="seg" id="slang"><button data-v="nl">Nederlands</button><button data-v="en">English</button><button data-v="de">Deutsch</button></div>
-      <label>Graphics</label><div class="seg" id="sgfx"><button data-v="auto">Auto</button><button data-v="laag">Laag</button><button data-v="middel">Middel</button><button data-v="hoog">Hoog</button></div>
-      <label>Scherm</label><div class="seg" id="sfs"><button data-v="1">Volledig scherm</button><button data-v="0">Venster</button></div>
-      <label>Volume</label><input type="range" id="svol" min="0" max="1" step="0.05">
-      <label>Radio</label><input type="range" id="srvol" min="0" max="1" step="0.05">
+:root{--red:#c8102e;--yel:#ffd23a;--bg:#07050b;--card:rgba(16,11,24,.78);--line:rgba(255,255,255,.09);--txt:#f4f1f7;--dim:rgba(244,241,247,.6)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font:500 15px "Segoe UI",system-ui,sans-serif;user-select:none}
+button{font:inherit;color:inherit;cursor:pointer}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:8px}
+/* achtergrond */
+#vid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15) brightness(.55);transform:scale(1.04)}
+.poster{position:fixed;inset:0;background:url(/poster.jpg) center/cover;filter:blur(10px) brightness(.4)}
+.shade{position:fixed;inset:0;background:linear-gradient(90deg,rgba(6,4,10,.96) 0,rgba(6,4,10,.78) 260px,rgba(6,4,10,.35) 55%,rgba(6,4,10,.75) 100%),linear-gradient(0deg,rgba(6,4,10,.9),transparent 40%);pointer-events:none}
+#snow{position:fixed;inset:0;pointer-events:none;z-index:5}
+.lights{position:fixed;left:0;right:0;top:0;height:26px;z-index:6;pointer-events:none;display:none}
+.lights i{position:absolute;top:6px;width:9px;height:13px;border-radius:50% 50% 45% 45%;animation:tw 1.6s infinite alternate}
+@keyframes tw{from{opacity:.35;filter:brightness(.7)}to{opacity:1;filter:brightness(1.4) drop-shadow(0 0 6px currentColor)}}
+/* layout */
+.app{position:relative;z-index:2;height:100%;display:grid;grid-template-columns:250px 1fr}
+nav{display:flex;flex-direction:column;padding:28px 18px 18px;gap:4px;background:linear-gradient(180deg,rgba(10,7,16,.88),rgba(10,7,16,.7));border-right:1px solid var(--line);backdrop-filter:blur(6px)}
+.logo{font:900 31px/.95 Impact,"Arial Black",sans-serif;letter-spacing:0;text-shadow:3px 3px 0 #000;margin:0 6px 4px;overflow:hidden;white-space:nowrap}.logo span{display:block;color:var(--red);font-size:1.75em;text-shadow:2px 2px 0 #fff,-2px -2px 0 #fff,0 0 22px rgba(200,16,46,.6)}
+.tag{margin:0 8px 22px;font-size:11px;letter-spacing:.22em;color:var(--dim)}
+.nb{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:0;background:none;text-align:left;font-weight:700;letter-spacing:.05em;color:var(--dim);transition:.15s;position:relative}
+.nb:hover{background:rgba(255,255,255,.06);color:#fff}.nb.on{background:linear-gradient(90deg,rgba(200,16,46,.35),rgba(200,16,46,.05));color:#fff}
+.nb.on:before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--yel)}
+.nb .ic{width:22px;text-align:center;font-size:17px}.nb .bd{margin-left:auto;background:var(--red);color:#fff;font-size:11px;padding:1px 7px;border-radius:9px}
+.navfoot{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.mini{display:flex;gap:6px}.mini button{flex:1;padding:9px 0;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04)}.mini button:hover{background:rgba(255,255,255,.1)}
+.ver{font-size:11px;color:var(--dim);text-align:center;letter-spacing:.08em;line-height:1.5}
+main{position:relative;overflow:hidden}
+.tab{position:absolute;inset:0;padding:34px 40px 30px;overflow:auto;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s}
+.tab.on{opacity:1;pointer-events:auto;transform:none}
+h1{margin:0 0 4px;font:900 34px Impact,"Arial Black",sans-serif;letter-spacing:1px}h1 em{color:var(--yel);font-style:normal}
+.sub{color:var(--dim);margin:0 0 22px}
+h3{margin:22px 0 10px;font-size:12px;letter-spacing:.2em;color:var(--yel)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;backdrop-filter:blur(8px)}
+.btn{padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}.btn:hover{background:rgba(255,255,255,.12)}
+.btn.y{background:var(--yel);color:#111;border:0}.btn.y:hover{filter:brightness(1.1)}.btn.r{background:var(--red);border:0}
+.msg{min-height:20px;color:var(--yel);font-size:14px;margin-top:10px}.msg.err{color:#ff6b6b}
+/* spelen */
+.hero{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:stretch;max-width:980px;padding:0;overflow:hidden}
+.hero .pic{background:#000 30% center/cover;min-height:280px;position:relative}.hero .pic:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(16,11,24,.9))}
+.hero .info{padding:26px 26px 22px 0;display:flex;flex-direction:column}
+.hero .who{font:900 40px Impact,"Arial Black";letter-spacing:1px;line-height:1}.hero .meta{color:var(--dim);margin:6px 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:auto}.chip{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px}.chip b{color:var(--yel)}
+.play{margin-top:20px;padding:18px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--red),#ff3550);font:900 24px Impact,"Arial Black";letter-spacing:2px;box-shadow:0 10px 40px rgba(200,16,46,.45);transition:.15s}
+.play:hover{transform:translateY(-2px);box-shadow:0 14px 50px rgba(200,16,46,.6)}.play:disabled{opacity:.4;transform:none}
+.profs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;max-width:980px}
+.prof{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:var(--card);border:2px solid transparent;cursor:pointer;transition:.15s;position:relative}
+.prof:hover{border-color:rgba(255,255,255,.2)}.prof.sel{border-color:var(--yel);background:rgba(255,210,58,.1)}
+.av{width:50px;height:50px;border-radius:12px;background:#1d1626 center 15%/170% no-repeat;flex:none;border:2px solid rgba(255,255,255,.15)}
+.pn{min-width:0;flex:1}.pn b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pn small{color:var(--dim);font-size:12px}
+.del{position:absolute;right:6px;top:4px;border:0;background:none;color:#fff;opacity:.3;font-size:15px}.del:hover{opacity:1;color:#ff6b6b}
+.newp{display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:980px}
+.newp input{flex:1;min-width:180px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,.4);color:#fff;font:inherit;outline:0}.newp input:focus{border-color:var(--yel)}
+.pick{display:flex;gap:6px}.pick button{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:10px;border:2px solid var(--line);background:rgba(0,0,0,.3)}
+.pick button i{width:30px;height:30px;border-radius:8px;background:#1d1626 center 12%/190% no-repeat}.pick button.on{border-color:var(--yel)}
+/* nieuws */
+.news{display:flex;flex-direction:column;gap:14px;max-width:900px}
+.nitem{display:grid;grid-template-columns:110px 1fr;gap:18px}
+.nv{font:900 26px Impact,"Arial Black";color:var(--yel)}.nd{color:var(--dim);font-size:12px}
+.nitem ul{margin:8px 0 0;padding-left:18px}.nitem li{margin:4px 0;line-height:1.4}
+.nitem.top{border-color:rgba(255,210,58,.5);box-shadow:0 0 30px rgba(255,210,58,.12)}
+.lbl{display:inline-block;background:var(--red);font-size:11px;font-weight:800;letter-spacing:.12em;padding:3px 8px;border-radius:5px;margin-left:8px;vertical-align:middle}
+/* personages */
+.chars{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-width:1100px}
+.ch{border-radius:14px;overflow:hidden;background:var(--card);border:2px solid var(--line);cursor:pointer;transition:.15s;text-align:center}
+.ch:hover{transform:translateY(-3px);border-color:var(--c,#fff)}.ch .im{height:170px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.3)) center/contain no-repeat}
+.ch .im.txt{display:flex;align-items:center;justify-content:center;font:900 64px Impact;color:var(--c)}
+.ch b{display:block;padding:10px 8px 2px}.ch small{display:block;padding:0 8px 12px;color:var(--dim);font-size:12px}
+.chd{display:grid;grid-template-columns:260px 1fr;gap:24px;max-width:1000px;margin-top:16px}
+.chd .im{background:center/contain no-repeat;min-height:320px;border-radius:14px;background-color:rgba(0,0,0,.3)}
+.chd .im.txt{display:flex;align-items:center;justify-content:center;font:900 120px Impact;color:var(--c)}
+.q{font-style:italic;color:var(--yel);margin:10px 0}
+/* prestaties */
+.ach{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;max-width:1100px}
+.a{display:flex;gap:12px;align-items:center;padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.a .e{font-size:30px;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,210,58,.12)}
+.a.off{opacity:.45}.a.off .e{filter:grayscale(1);background:rgba(255,255,255,.05)}.a b{display:block}.a small{color:var(--dim)}
+.prog{height:8px;border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden;max-width:520px}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--yel))}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;max-width:1100px}
+.stat{padding:14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}.stat b{display:block;font:900 24px Impact;color:var(--yel)}.stat small{color:var(--dim)}
+/* screenshots */
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.shot{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#000 center/cover;cursor:zoom-in;border:1px solid var(--line)}
+.shot span{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;font-size:12px;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent)}
+.view{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.view.on{display:flex}.view img{max-width:92vw;max-height:80vh;border-radius:10px;box-shadow:0 20px 80px #000}
+/* instellingen */
+.sets{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;max-width:1150px}
+.row{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:12px;margin:10px 0}.row label{color:var(--dim)}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:rgba(0,0,0,.3);padding:4px;border-radius:10px}
+.seg button{flex:1;padding:8px 10px;border-radius:8px;border:0;background:none;color:var(--dim);font-weight:700;white-space:nowrap}.seg button.on{background:var(--yel);color:#111}
+input[type=range]{width:100%;accent-color:var(--yel)}.rv{display:flex;align-items:center;gap:10px}.rv output{width:46px;text-align:right;font-weight:700;color:var(--yel)}
+.keys{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.kb{min-width:110px;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.35);font-weight:800;font-family:Consolas,monospace}.kb.wait{border-color:var(--yel);color:var(--yel);animation:tw .6s infinite alternate}
+.sw{width:46px;height:26px;border-radius:13px;background:rgba(255,255,255,.15);position:relative;border:0}.sw:after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.15s}
+.sw.on{background:var(--yel)}.sw.on:after{left:23px;background:#111}
+.sys{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:14px}.sys span{color:var(--dim)}
+/* community */
+.big{font:900 44px Impact;color:var(--yel);line-height:1}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ba55d;margin-right:6px;box-shadow:0 0 8px #3ba55d}
+.comm{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;max-width:1100px}
+textarea{width:100%;min-height:110px;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,.4);color:#fff;font:inherit;resize:vertical;outline:0}textarea:focus{border-color:var(--yel)}
+/* overlays */
+.load{position:fixed;inset:0;z-index:60;background:rgba(5,3,8,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.load.on{display:flex}.load .logo{font-size:64px;text-align:center}.bar{width:360px;height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden}.bar i{display:block;width:40%;height:100%;background:linear-gradient(90deg,var(--red),var(--yel));animation:ld 1.1s infinite ease-in-out}
+@keyframes ld{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.modal{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal.on{display:flex}.modal .card{width:min(620px,92vw);max-height:84vh;overflow:auto;padding:28px;border-color:rgba(255,210,58,.4);animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+.modal ul{padding-left:20px}.modal li{margin:6px 0;line-height:1.45}
+.toast{position:fixed;right:24px;bottom:24px;z-index:70;background:var(--card);border:1px solid var(--yel);padding:12px 18px;border-radius:12px;transform:translateY(120px);transition:.3s;font-weight:600}.toast.on{transform:none}
+.empty{color:var(--dim);padding:30px;text-align:center;border:2px dashed var(--line);border-radius:14px;max-width:900px}
+@media (max-width:1050px){.hero{grid-template-columns:1fr}.hero .pic{min-height:180px}.hero .info{padding:20px}.chd{grid-template-columns:1fr}}
+</style></head><body>
+<div class="poster"></div><video id="vid" autoplay muted loop playsinline preload="auto"></video><div class="shade"></div>
+<canvas id="snow"></canvas><div class="lights" id="lights"></div>
+<div class="app">
+  <nav>
+    <div class="logo">ROTTERDAM<span>VII</span></div><div class="tag">ALLES KAN KAPOT</div>
+    <button class="nb on" data-t="spelen"><span class="ic">▶</span>SPELEN</button>
+    <button class="nb" data-t="nieuws"><span class="ic">📰</span>NIEUWS<span class="bd" id="newsBadge" hidden>NIEUW</span></button>
+    <button class="nb" data-t="personages"><span class="ic">🎭</span>PERSONAGES</button>
+    <button class="nb" data-t="prestaties"><span class="ic">🏆</span>PRESTATIES</button>
+    <button class="nb" data-t="screenshots"><span class="ic">📸</span>SCREENSHOTS</button>
+    <button class="nb" data-t="instellingen"><span class="ic">⚙</span>INSTELLINGEN</button>
+    <button class="nb" data-t="community"><span class="ic">💬</span>COMMUNITY<span class="bd" id="onlineBadge" hidden></span></button>
+    <div class="navfoot">
+      <div class="mini"><button id="mus" title="Menumuziek aan/uit">🎵</button><button id="disc" title="Discord-server">💬</button><button id="quit" title="Afsluiten">⏻</button></div>
+      <div class="ver" id="ver">LAUNCHER</div>
     </div>
-    <div class="msg" id="msg"></div>
-    <button class="play" id="play" disabled>▶ SPELEN</button>
-    <div class="row"><button class="btn disc" id="disc">💬 Discord-server</button><button class="btn" id="quit">Afsluiten</button></div>
-  </div>
+  </nav>
+  <main>
+    <!-- SPELEN -->
+    <section class="tab on" id="t-spelen">
+      <h1>WELKOM IN <em>ROTTERDAM</em></h1><p class="sub" id="greet">Kies je speler en duik de stad in.</p>
+      <div class="card hero" id="hero">
+        <div class="pic" id="heroPic"></div>
+        <div class="info">
+          <div class="who" id="heroName">NIEUW SPEL</div><div class="meta" id="heroMeta">Maak hieronder een speler aan om te beginnen.</div>
+          <div class="chips" id="heroChips"></div>
+          <button class="play" id="play" disabled>▶ DOORGAAN</button>
+        </div>
+      </div>
+      <div class="msg" id="msg"></div>
+      <h3>SPELERS</h3><div class="profs" id="plist"></div>
+      <h3>NIEUWE SPELER</h3>
+      <div class="newp"><input id="pname" maxlength="24" placeholder="Naam van je nieuwe speler…">
+        <div class="pick"><button data-c="barry" class="on"><i style="background-image:url('/media/characters/barry_boem_stil(1).png')"></i>Barry</button><button data-c="bella"><i style="background-image:url('/media/characters/bella_boem_stil(1).png')"></i>Bella</button></div>
+        <button class="btn y" id="padd">+ Toevoegen</button></div>
+    </section>
+    <!-- NIEUWS -->
+    <section class="tab" id="t-nieuws"><h1>NIEUWS &amp; <em>UPDATES</em></h1><p class="sub">Alles wat er nieuw is in Rotterdam VII.</p><div class="news" id="news"><div class="empty">Nieuws laden…</div></div></section>
+    <!-- PERSONAGES -->
+    <section class="tab" id="t-personages"><h1>DE <em>PERSONAGES</em></h1><p class="sub">De mensen die je tegenkomt in Rotterdam. Klik op iemand voor zijn verhaal.</p><div class="chars" id="chars"></div><div id="chd"></div></section>
+    <!-- PRESTATIES -->
+    <section class="tab" id="t-prestaties"><h1>PRESTATIES <em id="achWho"></em></h1><p class="sub" id="achSub">Speel missies, verdien geld en ontdek de stad om badges te halen.</p>
+      <div class="prog"><i id="achBar" style="width:0"></i></div><h3>STATISTIEKEN</h3><div class="stats" id="stats"></div><h3>BADGES</h3><div class="ach" id="ach"></div></section>
+    <!-- SCREENSHOTS -->
+    <section class="tab" id="t-screenshots"><h1>JOUW <em>SCREENSHOTS</em></h1><p class="sub">Druk in het spel op <b>F12</b> om een screenshot te maken. Ze komen hier en in je map Afbeeldingen › Rotterdam VII.</p>
+      <div style="display:flex;gap:8px;margin-bottom:16px"><button class="btn" id="shotDir">📂 Map openen</button><button class="btn" id="shotRefresh">🔄 Vernieuwen</button></div><div class="shots" id="shots"></div></section>
+    <!-- INSTELLINGEN -->
+    <section class="tab" id="t-instellingen"><h1><em>INSTELLINGEN</em></h1><p class="sub">Wordt meteen opgeslagen en geldt bij de volgende keer spelen.</p>
+      <div class="sets">
+        <div class="card"><h3 style="margin-top:0">BEELD</h3>
+          <div class="row"><label>Graphics</label><div class="seg" id="sgfx"><button data-v="auto">Auto</button><button data-v="laag">Laag</button><button data-v="middel">Middel</button><button data-v="hoog">Max</button></div></div>
+          <div class="row"><label>Scherm</label><div class="seg" id="sfs"><button data-v="1">Volledig</button><button data-v="0">Venster</button></div></div>
+          <div class="row"><label>FPS-limiet</label><div class="seg" id="sfps"><button data-v="0">Geen</button><button data-v="30">30</button><button data-v="60">60</button><button data-v="120">120</button><button data-v="144">144</button></div></div>
+          <div class="row"><label>Beeldveld (FOV)</label><div class="rv"><input type="range" id="sfov" min="55" max="100" step="1"><output id="ofov"></output></div></div>
+          <h3>SYSTEEM</h3><div class="sys" id="sys"><span>Laden…</span></div>
+          <button class="btn" id="useRec" style="margin-top:12px">✨ Aanbevolen graphics gebruiken</button>
+        </div>
+        <div class="card"><h3 style="margin-top:0">GELUID</h3>
+          <div class="row"><label>Hoofdvolume</label><div class="rv"><input type="range" id="svol" min="0" max="1" step=".05"><output id="ovol"></output></div></div>
+          <div class="row"><label>Effecten</label><div class="rv"><input type="range" id="sveff" min="0" max="1" step=".05"><output id="oveff"></output></div></div>
+          <div class="row"><label>Omgeving</label><div class="rv"><input type="range" id="svamb" min="0" max="1" step=".05"><output id="ovamb"></output></div></div>
+          <div class="row"><label>Muziek</label><div class="rv"><input type="range" id="svmus" min="0" max="1" step=".05"><output id="ovmus"></output></div></div>
+          <div class="row"><label>Autoradio</label><div class="rv"><input type="range" id="srvol" min="0" max="1" step=".05"><output id="orvol"></output></div></div>
+          <div class="row"><label>Menumuziek</label><button class="sw" id="smusic"></button></div>
+          <div class="row"><label>Klikgeluidjes</label><button class="sw" id="ssfx"></button></div>
+          <h3>OVERIG</h3>
+          <div class="row"><label>Taal</label><div class="seg" id="slang"><button data-v="nl">Nederlands</button><button data-v="en">English</button><button data-v="de">Deutsch</button></div></div>
+          <div class="row"><label>Discord-status</label><button class="sw" id="srpc"></button></div>
+        </div>
+        <div class="card"><h3 style="margin-top:0">BESTURING</h3>
+          <div class="row"><label>Muisgevoeligheid</label><div class="rv"><input type="range" id="ssens" min=".2" max="3" step=".05"><output id="osens"></output></div></div>
+          <div class="row"><label>Muis Y omdraaien</label><button class="sw" id="sinv"></button></div>
+          <h3>TOETSEN</h3><div class="keys" id="keys"></div>
+          <button class="btn" id="keyReset" style="margin-top:12px">↺ Standaardtoetsen</button>
+        </div>
+      </div></section>
+    <!-- COMMUNITY -->
+    <section class="tab" id="t-community"><h1><em>COMMUNITY</em></h1><p class="sub">Speel samen, deel je screenshots en help de game beter maken.</p>
+      <div class="comm">
+        <div class="card"><h3 style="margin-top:0">DISCORD-SERVER</h3><div id="dc"><div class="big">…</div></div>
+          <p style="color:var(--dim)">Daar hoor je als eerste over updates, kun je je rol 🔔 Update-ping pakken en met andere spelers kletsen.</p><button class="btn y" id="join">💬 Naar de Discord-server</button></div>
+        <div class="card"><h3 style="margin-top:0">NIEUWSTE UPDATE</h3><div id="lastUpd" style="color:var(--dim)">Laden…</div><button class="btn" id="site" style="margin-top:12px">🌐 Naar de website</button></div>
+        <div class="card"><h3 style="margin-top:0">BUG MELDEN 🐛</h3><p style="color:var(--dim);margin-top:0">Beschrijf wat er misging. Er komt een rapport met je systeeminfo en logboek op je bureaublad, en #bug-reports gaat open. Sleep het bestand daarin.</p>
+          <textarea id="bugTxt" placeholder="Bijvoorbeeld: mijn auto zakte door de weg bij de brug toen ik…"></textarea><button class="btn r" id="bug" style="margin-top:10px">🐛 Rapport maken</button><div class="msg" id="bugMsg"></div></div>
+      </div></section>
+  </main>
 </div>
-<div class="load" id="load"><div id="ltxt">Laden…</div><div class="bar"><i></i></div></div>
+<div class="view" id="view"><img id="viewImg"><div style="display:flex;gap:8px"><button class="btn y" id="vCopy">📋 Kopiëren (plak in Discord)</button><button class="btn" id="vShow">📂 Tonen in map</button><button class="btn" id="vDel">🗑 Verwijderen</button><button class="btn" id="vClose">✕ Sluiten</button></div></div>
+<div class="modal" id="wn"><div class="card"><div style="font-size:12px;letter-spacing:.2em;color:var(--yel)">✨ WAT IS ER NIEUW</div><h1 id="wnT" style="margin:6px 0 10px">Versie</h1><ul id="wnL"></ul><button class="btn y" id="wnOk" style="margin-top:10px">Lekker, spelen maar!</button></div></div>
+<div class="load" id="load"><div class="logo">ROTTERDAM<span>VII</span></div><div id="ltxt" style="color:var(--dim)">Laden…</div><div class="bar"><i></i></div><div id="ltip" style="color:var(--yel);max-width:520px;text-align:center;font-size:14px"></div></div>
+<div class="toast" id="toast"></div>
+<script src="/chars.js"></script>
 <script>
-const $=i=>document.getElementById(i);let S={gfx:'auto',fs:true,vol:.8,rvol:.9,last:''},P=[],sel='',newChar='barry';
-window.onerror=(m,src,l,c,e)=>{fetch('/api/log',{method:'POST',body:'JS-fout: '+m+' @'+l+':'+c}).catch(()=>{});};
+const $=i=>document.getElementById(i);
+let S={gfx:'auto',fs:true,vol:.8,rvol:.9,last:'',lang:'nl',rpc:true,music:true,sfx:true,fov:70,sens:1,inv:false,fps:0,keys:{},vEff:1,vAmb:1,vMus:1},P=[],sel='',newChar='barry',ST={},SYS=null;
+window.onerror=(m,src,l,c)=>{fetch('/api/log',{method:'POST',body:'JS-fout: '+m+' @'+l+':'+c}).catch(()=>{});};
 window.onunhandledrejection=e=>{fetch('/api/log',{method:'POST',body:'Promise: '+(e.reason&&(e.reason.message||e.reason.status)||e.reason)}).catch(()=>{});};
 const api=(u,o)=>fetch(u,o).then(r=>{if(!r.ok)throw r;return r.json();});
 setInterval(()=>fetch('/api/ping').catch(()=>{}),4000);fetch('/api/ping').catch(()=>{});
-function msg(t,err){$('msg').textContent=t||'';$('msg').className='msg'+(err?' err':'');}
+const L=()=>S.lang||'nl',tr=o=>o&&typeof o==='object'?(o[L()]||o.nl||''):(o||'');
+const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nl=n=>Math.round(n||0).toLocaleString('nl-NL');
+function msg(t,err,id='msg'){$(id).textContent=t||'';$(id).className='msg'+(err?' err':'');}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600);}
 function saveS(){fetch('/api/settings',{method:'POST',body:JSON.stringify(S)}).catch(()=>{});}
-function seg(id,val,cb){$(id).querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===String(val));b.onclick=()=>{cb(b.dataset.v);seg(id,b.dataset.v,cb);saveS();};});}
+
+/* ---------- geluid: menumuziek (synthwave, live gemaakt) en klikjes ---------- */
+const AU={ctx:null,on:false,nodes:[],
+  init(){if(this.ctx)return;try{this.ctx=new AudioContext();this.out=this.ctx.createGain();this.out.gain.value=0;this.out.connect(this.ctx.destination);
+    const d=this.ctx.createDelay(1);d.delayTime.value=.375;const fb=this.ctx.createGain();fb.gain.value=.32;d.connect(fb);fb.connect(d);d.connect(this.out);this.delay=d;}catch(e){}},
+  click(f=880,len=.05,vol=.08){if(!S.sfx)return;this.init();const c=this.ctx;if(!c)return;if(c.state==='suspended')c.resume();const o=c.createOscillator(),g=c.createGain();o.type='triangle';o.frequency.setValueAtTime(f,c.currentTime);o.frequency.exponentialRampToValueAtTime(f*.6,c.currentTime+len);g.gain.setValueAtTime(vol*(S.vol??.8),c.currentTime);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+len);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+len+.02);},
+  start(){if(!S.music||this.on)return;this.init();const c=this.ctx;if(!c)return;c.resume();this.on=true;this.out.gain.cancelScheduledValues(c.currentTime);this.out.gain.linearRampToValueAtTime(.16*(S.vol??.8),c.currentTime+2.5);
+    const bpm=96,beat=60/bpm,bar=beat*4,chords=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]],mf=n=>440*Math.pow(2,(n-69)/12);let t0=c.currentTime+.1,i=0;
+    const sched=()=>{if(!this.on)return;while(t0<c.currentTime+2){const ch=chords[i%4];
+      ch.forEach(n=>{const o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();o.type='sawtooth';o.frequency.value=mf(n);o.detune.value=(Math.random()-.5)*14;f.type='lowpass';f.frequency.value=900;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.05,t0+.6);g.gain.linearRampToValueAtTime(.0,t0+bar);o.connect(f);f.connect(g);g.connect(this.out);o.start(t0);o.stop(t0+bar+.05);});
+      for(let k=0;k<8;k++){const tt=t0+k*beat/2,o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=mf(ch[k%3]+(k>3?12:24));g.gain.setValueAtTime(.025,tt);g.gain.exponentialRampToValueAtTime(.0001,tt+.18);o.connect(g);g.connect(this.out);g.connect(this.delay);o.start(tt);o.stop(tt+.2);}
+      for(let k=0;k<4;k++){const tt=t0+k*beat,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=mf(ch[0]-24);g.gain.setValueAtTime(.14,tt);g.gain.exponentialRampToValueAtTime(.001,tt+beat*.9);o.connect(g);g.connect(this.out);o.start(tt);o.stop(tt+beat);}
+      t0+=bar;i++;}this.tm=setTimeout(sched,500);};sched();},
+  stop(){if(!this.on)return;this.on=false;clearTimeout(this.tm);const c=this.ctx;this.out.gain.cancelScheduledValues(c.currentTime);this.out.gain.setValueAtTime(this.out.gain.value,c.currentTime);this.out.gain.linearRampToValueAtTime(0,c.currentTime+.8);}
+};
+addEventListener('pointerdown',()=>{if(S.music&&!AU.on)AU.start();},{once:false});
+document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('button,.prof,.ch,.shot');if(b&&b!==AU._last){AU._last=b;AU.click(1400,.03,.025);}});
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button,.prof,.ch'))AU.click(660,.07,.06);},true);
+function setMusicBtn(){$('mus').textContent=S.music?'🎵':'🔇';$('mus').style.opacity=S.music?1:.5;}
+
+/* ---------- achtergrond, kerst ---------- */
+(()=>{const v=$('vid');v.src='/media/hero.mp4';v.play().catch(()=>{});v.onerror=()=>v.remove();})();
+const XMAS=(()=>{const d=new Date(),m=d.getMonth()+1,dd=d.getDate();return (m===11&&dd>=20)||m===12||(m===1&&dd<=6);})();
+if(XMAS){const Lg=$('lights');Lg.style.display='block';const cols=['#ff3b3b','#ffd23a','#3bff7a','#3bb6ff','#ff7ad9'];for(let i=0;i<60;i++){const e=document.createElement('i');e.style.left=(i/60*100+.8)+'%';e.style.color=e.style.background=cols[i%5];e.style.animationDelay=(Math.random()*1.6)+'s';Lg.appendChild(e);}
+  const cv=$('snow'),x=cv.getContext('2d');let F=[];const rs=()=>{cv.width=innerWidth;cv.height=innerHeight;};rs();addEventListener('resize',rs);
+  for(let i=0;i<140;i++)F.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2.4+.6,s:Math.random()*.8+.3,w:Math.random()*6.28});
+  (function fr(){x.clearRect(0,0,cv.width,cv.height);x.fillStyle='rgba(255,255,255,.85)';for(const f of F){f.y+=f.s;f.w+=.01;f.x+=Math.sin(f.w)*.4;if(f.y>cv.height){f.y=-5;f.x=Math.random()*cv.width;}x.beginPath();x.arc(f.x,f.y,f.r,0,6.3);x.fill();}requestAnimationFrame(fr);})();
+  $('greet').textContent='🎄 Fijne feestdagen! Kies je speler en duik de besneeuwde stad in.';}
+
+/* ---------- tabbladen ---------- */
+function tab(t){document.querySelectorAll('.nb').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('on',s.id==='t-'+t));
+  if(t==='nieuws'){$('newsBadge').hidden=true;try{localStorage.setItem('r7newsSeen',String(NEWSV||''));}catch(e){}}
+  if(t==='screenshots')loadShots();if(t==='prestaties')renderAch();if(t==='community')loadComm();}
+document.querySelectorAll('.nb').forEach(b=>b.onclick=()=>tab(b.dataset.t));
+
+/* ---------- spelers ---------- */
+const charImg=c=>c==='bella'?'/media/bella.jpg':'/media/barry.jpg',charPng=c=>'/media/characters/'+encodeURIComponent(c==='bella'?'bella_boem_stil(1).png':'barry_boem_stil(1).png');
 function ago(t){if(!t)return 'nog niet gespeeld';const d=(Date.now()/1000-t)|0;return d<120?'net gespeeld':d<7200?Math.round(d/60)+' min geleden':d<172800?Math.round(d/3600)+' uur geleden':Math.round(d/86400)+' dagen geleden';}
+const hrs=s=>{s=+s||0;const h=Math.floor(s/3600),m=Math.round(s%3600/60);return h?h+' u '+m+' min':m+' min';};
 function render(){
-  const L=$('plist');L.innerHTML='';
-  if(!P.length)L.innerHTML='<div style="opacity:.6">Nog geen spelers. Typ je naam hieronder om te beginnen.</div>';
+  const Lp=$('plist');Lp.innerHTML='';
+  if(!P.length)Lp.innerHTML='<div class="empty">Nog geen spelers. Typ hieronder je naam om te beginnen.</div>';
   for(const p of P){const d=document.createElement('div');d.className='prof'+(p.name===sel?' sel':'');
-    d.innerHTML='<div class="av '+p.char+'">'+(p.name[0]||'?').toUpperCase()+'</div><div class="pn"><b></b><small>'+(p.has?'Verhaal '+Math.min(p.story,5)+'/5 · € '+p.cash.toLocaleString('nl-NL')+' · ':'Nieuw spel · ')+ago(p.lastPlay)+'</small></div><button class="del" title="Verwijderen">✕</button>';
+    d.innerHTML='<div class="av" style="background-image:url(&quot;'+charPng(p.char)+'&quot;)"></div><div class="pn"><b></b><small>'+(p.has?'Verhaal '+Math.min(p.story,5)+'/5 · € '+nl(p.cash+p.bank):'Nieuw spel')+'<br>'+ago(p.lastPlay)+'</small></div><button class="del" title="Verwijderen">✕</button>';
     d.querySelector('b').textContent=p.name;
     d.onclick=()=>{sel=p.name;S.last=sel;saveS();render();};d.ondblclick=()=>{sel=p.name;play();};
-    d.querySelector('.del').onclick=e=>{e.stopPropagation();if(d.dataset.sure){api('/api/profiles?name='+encodeURIComponent(p.name),{method:'DELETE'}).then(r=>{P=r;if(sel===p.name)sel=P[0]?P[0].name:'';render();msg(p.name+' is verwijderd.');});}else{d.dataset.sure=1;e.target.textContent='Zeker?';e.target.style.opacity=1;e.target.style.color='#ff5a5f';setTimeout(()=>{delete d.dataset.sure;e.target.textContent='✕';e.target.style='';},3000);}};
-    L.appendChild(d);}
-  $('play').disabled=!sel;$('play').textContent=sel?'▶ SPELEN ALS '+sel.toUpperCase():'▶ SPELEN';
+    d.querySelector('.del').onclick=e=>{e.stopPropagation();if(d.dataset.sure){api('/api/profiles?name='+encodeURIComponent(p.name),{method:'DELETE'}).then(r=>{P=r;if(sel===p.name)sel=P[0]?P[0].name:'';render();msg(p.name+' is verwijderd.');});}else{d.dataset.sure=1;e.target.textContent='Zeker?';e.target.style.opacity=1;e.target.style.color='#ff6b6b';setTimeout(()=>{delete d.dataset.sure;e.target.textContent='✕';e.target.style='';},3000);}};
+    Lp.appendChild(d);}
+  const p=P.find(x=>x.name===sel);
+  $('heroPic').style.background=p?'url("'+charPng(p.char)+'") center 30%/auto 125% no-repeat,radial-gradient(circle at 50% 45%,'+(p.char==='bella'?'#ff6fb555':'#f5862a55')+',transparent 70%),url('+charImg(p.char)+') 30% center/cover':'url(/media/aerial.jpg) center/cover';
+  $('heroName').textContent=p?p.name.toUpperCase():'NIEUW SPEL';
+  $('heroMeta').textContent=p?((p.char==='bella'?'Bella Boem':'Barry Boem')+' · '+ago(p.lastPlay)):'Maak hieronder een speler aan om te beginnen.';
+  const st=p&&p.st||{};$('heroChips').innerHTML=p&&p.has?[
+    ['💶','€ '+nl(p.cash+p.bank)],['📖','Verhaal '+Math.min(p.story,5)+'/5'],['🎯',nl(st.miss)+' missies'],['🛣️',(+st.km||0).toFixed(1)+' km'],['⏱️',hrs(st.time)],['🏆',achCount(p)+'/'+ACH.length+' badges']
+  ].map(c=>'<span class="chip">'+c[0]+' <b>'+esc(c[1])+'</b></span>').join(''):(p?'<span class="chip">✨ <b>Nieuw spel</b> – je begint in Charlois</span>':'');
+  $('play').disabled=!sel;$('play').textContent=p&&p.has?'▶ DOORGAAN':'▶ START NIEUW SPEL';
+  $('achWho').textContent=p?'· '+p.name.toUpperCase():'';
 }
 async function add(){const n=$('pname').value.trim();if(!n){msg('Typ eerst een naam.',1);return;}
   let r;try{r=await fetch('/api/profiles',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,char:newChar})});}catch(e){msg('Geen verbinding met de launcher. Start Rotterdam VII opnieuw.',1);return;}
   if(!r.ok){msg((await r.text()).trim()||'Dat lukte niet.',1);return;}
   try{P=await r.json();}catch(e){P=await api('/api/profiles').catch(()=>P);}
   const p=P.find(x=>x.name.toLowerCase()===n.replace(/[^\p{L}\p{N}_\- ]/gu,'').trim().slice(0,24).toLowerCase())||P[P.length-1];
-  if(p){sel=p.name;S.last=sel;saveS();}$('pname').value='';try{render();}catch(e){}msg(p?'Welkom, '+p.name+'!':'Speler toegevoegd.');}
+  if(p){sel=p.name;S.last=sel;saveS();}$('pname').value='';render();msg(p?'Welkom, '+p.name+'!':'Speler toegevoegd.');}
+document.querySelectorAll('.pick button').forEach(b=>b.onclick=()=>{newChar=b.dataset.c;document.querySelectorAll('.pick button').forEach(x=>x.classList.toggle('on',x===b));});
+$('padd').onclick=add;$('pname').onkeydown=e=>{if(e.key==='Enter')add();};
+
+/* ---------- prestaties ---------- */
+const ACH=[
+ ['🎮','Eerste stappen','Start je eerste spel',p=>p.has],
+ ['🏁','Eerste klus','Voltooi een missie',p=>p.st.miss>=1],
+ ['🎯','Klusjesman','Voltooi 10 missies',p=>p.st.miss>=10],
+ ['🦸','Held van Rotterdam','Voltooi 50 missies',p=>p.st.miss>=50],
+ ['📖','Het begint','Start het verhaal',p=>p.story>=1],
+ ['📕','Einde verhaal','Speel het hele verhaal uit',p=>p.story>=5],
+ ['💰','Eerste ton','Heb € 100.000',p=>p.cash+p.bank>=1e5],
+ ['💎','Miljonair','Heb € 1.000.000',p=>p.cash+p.bank>=1e6],
+ ['🏠','Huiseigenaar','Koop een huis',p=>p.houses>=1],
+ ['🏢','Vastgoedkoning','Bezit 5 panden',p=>p.owned>=5],
+ ['🚗','Autoliefhebber','Heb 3 auto\'s op je naam',p=>p.cars>=3],
+ ['🛣️','Op pad','Rij 100 km',p=>p.st.km>=100],
+ ['🌍','Rondje Nederland','Rij 1000 km',p=>p.st.km>=1000],
+ ['⚡','Snelheidsduivel','Rij harder dan 200 km/u',p=>p.st.top>=200],
+ ['⏱️','Echte Rotterdammer','Speel 10 uur',p=>p.st.time>=36000],
+ ['📸','Fotograaf','Maak 10 screenshots',p=>p.st.shots>=10],
+];
+const norm=p=>Object.assign({cash:0,bank:0,story:0,houses:0,owned:0,cars:0},p,{st:Object.assign({miss:0,km:0,top:0,time:0,shots:0},p&&p.st||{})});
+const achCount=p=>p?ACH.filter(a=>{try{return a[3](norm(p));}catch(e){return false;}}).length:0;
+function renderAch(){const p0=P.find(x=>x.name===sel);if(!p0){$('ach').innerHTML='<div class="empty">Kies eerst een speler bij Spelen.</div>';$('stats').innerHTML='';$('achBar').style.width=0;return;}
+  const p=norm(p0),n=achCount(p0);$('achSub').textContent=n+' van de '+ACH.length+' badges gehaald';$('achBar').style.width=(n/ACH.length*100)+'%';
+  $('stats').innerHTML=[['€ '+nl(p.cash+p.bank),'geld (incl. bank)'],[nl(p.st.miss),'missies voltooid'],[Math.min(p.story,5)+'/5','verhaal'],[p.st.km.toFixed(1)+' km','gereden'],[nl(p.st.top)+' km/u','topsnelheid'],[hrs(p.st.time),'speeltijd'],[nl(p.houses+p.owned),'panden'],[nl(p.cars),'auto\'s'],[nl(p.st.shots),'screenshots']]
+    .map(s=>'<div class="stat"><b>'+esc(s[0])+'</b><small>'+s[1]+'</small></div>').join('');
+  $('ach').innerHTML=ACH.map(a=>{let ok=false;try{ok=a[3](p);}catch(e){}return '<div class="a'+(ok?'':' off')+'"><div class="e">'+a[0]+'</div><div><b>'+a[1]+'</b><small>'+(ok?'✅ ':'')+a[2]+'</small></div></div>';}).join('');}
+
+/* ---------- personages ---------- */
+const EXTRA=[
+ {id:'nova_nul',name:'Nova Nul',col:'#a983ff',role:{nl:'Piraten-dj van de havenradio',en:'Pirate DJ of the harbour radio',de:'Piraten-DJ des Hafenradios'},area:{nl:'Waalhaven',en:'Waalhaven',de:'Waalhaven'},quote:{nl:'“Ik hoor een tweede signaal onder de muziek.”',en:'“I hear a second signal under the music.”',de:'„Ich höre ein zweites Signal unter der Musik.“'},story:{nl:'Nova draait elke nacht muziek op een zender die officieel niet bestaat. Als ze een vreemd signaal opvangt in de haven, heeft ze jouw hulp nodig om de drie relais te controleren. Speel haar missie Havenfrequentie.',en:'Nova plays music every night on a station that officially doesn\'t exist. When she picks up a strange signal in the harbour, she needs your help to check three relays. Play her mission Havenfrequentie.',de:'Nova legt jede Nacht auf einem Sender auf, den es offiziell nicht gibt. Als sie im Hafen ein seltsames Signal empfängt, braucht sie deine Hilfe bei drei Relais. Spiel ihre Mission Havenfrequentie.'}},
+ {id:'rico_radar',name:'Rico Radar',col:'#e3a329',role:{nl:'Technicus en signaaljager',en:'Technician and signal hunter',de:'Techniker und Signaljäger'},area:{nl:'Haven',en:'Harbour',de:'Hafen'},quote:{nl:'“Dit ding was bijna uit elkaar.”',en:'“This thing was almost falling apart.”',de:'„Das Ding war fast auseinandergefallen.“'},story:{nl:'Rico kan elke antenne in Rotterdam repareren met een rol tape en een paperclip. Samen met Nova zoekt hij uit wie er stiekem op de havenfrequentie uitzendt.',en:'Rico can fix any antenna in Rotterdam with a roll of tape and a paperclip. Together with Nova he finds out who is secretly broadcasting on the harbour frequency.',de:'Rico repariert jede Antenne in Rotterdam mit einer Rolle Klebeband und einer Büroklammer. Mit Nova findet er heraus, wer heimlich auf der Hafenfrequenz sendet.'}}];
+const CH=()=>(window.R7_CHARS||[]).concat(EXTRA);
+function renderChars(){const g=$('chars');g.innerHTML='';for(const c of CH()){const d=document.createElement('div');d.className='ch';d.style.setProperty('--c',c.col||'#fff');
+  d.innerHTML=(c.img?'<div class="im" style="background-image:url(\'/media/characters/'+encodeURIComponent(c.img)+'\')"></div>':'<div class="im txt">'+esc(c.name.split(' ').map(w=>w[0]).join(''))+'</div>')+'<b>'+esc(c.name)+'</b><small>'+esc(tr(c.role))+'</small>';
+  d.onclick=()=>showChar(c);g.appendChild(d);}}
+function showChar(c){const h=$('chd');h.innerHTML='<div class="card chd" style="--c:'+(c.col||'#fff')+'">'+(c.img?'<div class="im" style="background-image:url(\'/media/characters/'+encodeURIComponent(c.img)+'\')"></div>':'<div class="im txt">'+esc(c.name.split(' ').map(w=>w[0]).join(''))+'</div>')+
+  '<div><h1 style="color:'+(c.col||'#fff')+'">'+esc(c.name)+'</h1><div style="color:var(--dim)">'+esc(tr(c.role))+(c.area?' · 📍 '+esc(tr(c.area)):'')+(c.age?' · '+c.age+' jaar':'')+'</div><div class="q">'+esc(tr(c.quote))+'</div><p style="line-height:1.55">'+esc(tr(c.story))+'</p>'+
+  (c.missions?'<h3>MISSIES</h3>'+c.missions.map(m=>'<div style="margin:6px 0"><b>'+esc(m[0])+'</b> – <span style="color:var(--dim)">'+esc(tr(m[1]))+'</span></div>').join(''):'')+'</div></div>';h.scrollIntoView({behavior:'smooth'});}
+
+/* ---------- nieuws ---------- */
+let NEWSV='';
+async function loadNews(){const n=await api('/api/news').catch(()=>null);const box=$('news');if(!n){box.innerHTML='<div class="empty">Geen verbinding: nieuws kan nu niet geladen worden.</div>';return;}
+  let h='';if(n.latest&&n.latest.version&&n.latest.notes){NEWSV=n.latest.version;h+='<div class="card nitem top"><div><div class="nv">'+esc(n.latest.version)+'</div><div class="nd">Nu in de game</div></div><div><b>Nieuwste update</b><span class="lbl">NIEUW</span><ul>'+splitNotes(n.latest.notes).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>';}
+  if(n.next&&n.next.versie)h+='<div class="card nitem"><div><div class="nv">'+esc(n.next.versie)+'</div><div class="nd">Binnenkort</div></div><div><b>'+esc(tr(n.next.titel))+'</b><span class="lbl" style="background:#5865f2">BINNENKORT</span><ul>'+(n.next.punten||[]).map(x=>'<li>'+esc(tr(x))+'</li>').join('')+'</ul></div></div>';
+  for(const u of n.list)h+='<div class="card nitem"><div><div class="nv">'+esc(u.versie)+'</div><div class="nd">'+esc(u.datum?new Date(u.datum).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}):'')+'</div></div><div><b>'+esc(tr(u.titel))+'</b><ul>'+(u.punten||[]).map(x=>'<li>'+esc(tr(x))+'</li>').join('')+'</ul></div></div>';
+  box.innerHTML=h||'<div class="empty">Nog geen nieuws.</div>';
+  let seen='';try{seen=localStorage.getItem('r7newsSeen')||'';}catch(e){}if(NEWSV&&seen!==NEWSV)$('newsBadge').hidden=false;}
+const splitNotes=t=>String(t||'').split(/\.\s+|\n/).map(x=>x.trim().replace(/\.$/,'')).filter(Boolean);
+function whatsNew(st){const l=st.update&&st.update.latest;const v=st.game;if(!v)return;let seen='';try{seen=localStorage.getItem('r7seen')||'';}catch(e){}
+  if(!seen){try{localStorage.setItem('r7seen',v);}catch(e){}return;}   // eerste keer: niet lastigvallen
+  if(seen===v)return;const notes=l&&l.version===v?l.notes:(st.update&&st.update.notes)||'';if(!notes)return;
+  $('wnT').textContent='Rotterdam VII '+v;$('wnL').innerHTML=splitNotes(notes).map(x=>'<li>'+esc(x)+'</li>').join('');$('wn').classList.add('on');
+  $('wnOk').onclick=()=>{$('wn').classList.remove('on');try{localStorage.setItem('r7seen',v);}catch(e){}};}
+
+/* ---------- screenshots ---------- */
+let SHOTS=[],cur=null;
+async function loadShots(){SHOTS=await api('/api/screenshots').catch(()=>[]);const g=$('shots');
+  if(!SHOTS.length){g.innerHTML='<div class="empty" style="grid-column:1/-1">Nog geen screenshots. Druk in het spel op <b>F12</b>!</div>';return;}
+  g.innerHTML='';for(const s of SHOTS){const d=document.createElement('div');d.className='shot';d.style.backgroundImage='url("/api/shot?f='+encodeURIComponent(s.f)+'")';d.innerHTML='<span>'+new Date(s.t).toLocaleString('nl-NL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</span>';d.onclick=()=>{cur=s.f;$('viewImg').src='/api/shot?f='+encodeURIComponent(s.f);$('view').classList.add('on');};g.appendChild(d);}}
+$('vClose').onclick=()=>$('view').classList.remove('on');$('view').onclick=e=>{if(e.target===$('view'))$('view').classList.remove('on');};
+$('vCopy').onclick=()=>fetch('/api/shotcopy?f='+encodeURIComponent(cur)).then(()=>toast('📋 Gekopieerd! Plak hem met Ctrl+V in Discord.'));
+$('vShow').onclick=()=>fetch('/api/shotfolder?f='+encodeURIComponent(cur));
+$('vDel').onclick=()=>{if(!$('vDel').dataset.sure){$('vDel').dataset.sure=1;$('vDel').textContent='Zeker?';setTimeout(()=>{delete $('vDel').dataset.sure;$('vDel').textContent='🗑 Verwijderen';},3000);return;}fetch('/api/shotdel?f='+encodeURIComponent(cur)).then(()=>{$('view').classList.remove('on');delete $('vDel').dataset.sure;$('vDel').textContent='🗑 Verwijderen';loadShots();toast('Naar de prullenbak verplaatst.');});};
+$('shotDir').onclick=()=>fetch('/api/shotfolder');$('shotRefresh').onclick=loadShots;
+addEventListener('keydown',e=>{if(e.key==='Escape'){$('view').classList.remove('on');$('wn').classList.remove('on');}});
+
+/* ---------- instellingen ---------- */
+function seg(id,val,cb){$(id).querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.v===String(val));b.onclick=()=>{cb(b.dataset.v);seg(id,b.dataset.v,cb);saveS();};});}
+function rng(id,key,fmt){const r=$('s'+id),o=$('o'+id);r.value=S[key];const f=()=>o.textContent=fmt(+r.value);f();r.oninput=()=>{S[key]=+r.value;f();if(key==='vol'&&AU.on)AU.out.gain.value=.16*S.vol;};r.onchange=saveS;}
+function sw(id,key,cb){const b=$(id);const f=()=>b.classList.toggle('on',!!S[key]);f();b.onclick=()=>{S[key]=!S[key];f();saveS();cb&&cb();};}
+const pct=v=>Math.round(v*100)+'%';
+const KEYS=[['fwd','Vooruit','KeyW'],['back','Achteruit','KeyS'],['left','Links','KeyA'],['right','Rechts','KeyD'],['sprint','Sprinten','ShiftLeft'],['jump','Springen / handrem','Space'],['enter','Instappen','KeyF'],['act','Actie / winkel','KeyE'],['talk','Praten','KeyT'],['map','Kaart','KeyM'],['phone','Telefoon','KeyP'],['horn','Toeteren','KeyH'],['swap','Wissel personage','KeyC'],['view','Camera','KeyV']];
+const kname=c=>String(c||'').replace(/^Key/,'').replace(/^Digit/,'').replace('ShiftLeft','L-Shift').replace('ShiftRight','R-Shift').replace('ControlLeft','L-Ctrl').replace('Space','Spatie').replace('AltLeft','L-Alt').replace('Arrow','Pijl ');
+function renderKeys(){const k=$('keys');k.innerHTML='';for(const [id,lab,def] of KEYS){const l=document.createElement('span');l.textContent=lab;const b=document.createElement('button');b.className='kb';b.textContent=kname(S.keys[id]||def);
+  b.onclick=()=>{document.querySelectorAll('.kb.wait').forEach(x=>x.classList.remove('wait'));b.classList.add('wait');b.textContent='Druk een toets…';
+    const h=e=>{e.preventDefault();removeEventListener('keydown',h,true);b.classList.remove('wait');if(e.code==='Escape'){renderKeys();return;}
+      for(const [o] of KEYS)if(o!==id&&(S.keys[o]||KEYS.find(x=>x[0]===o)[2])===e.code){delete S.keys[o];S.keys[o]=S.keys[id]||def;}
+      if(e.code===def)delete S.keys[id];else S.keys[id]=e.code;saveS();renderKeys();};addEventListener('keydown',h,true);};
+  k.append(l,b);}}
+$('keyReset').onclick=()=>{S.keys={};saveS();renderKeys();toast('Standaardtoetsen hersteld.');};
+async function loadSys(){SYS=await api('/api/system').catch(()=>null);if(!SYS){$('sys').innerHTML='<span>Niet beschikbaar</span>';return;}
+  const G={laag:'Laag',middel:'Middel',hoog:'Max'};$('sys').innerHTML='<span>Videokaart</span><b>'+esc(SYS.gpu)+'</b><span>Processor</span><b>'+esc(SYS.cpu)+'</b><span>Geheugen</span><b>'+SYS.ram+' GB</b><span>Aanbevolen</span><b style="color:var(--yel)">'+G[SYS.rec]+'</b>';}
+$('useRec').onclick=()=>{if(!SYS)return;S.gfx=SYS.rec;seg('sgfx',S.gfx,v=>S.gfx=v);saveS();toast('Graphics op '+({laag:'Laag',middel:'Middel',hoog:'Max'})[SYS.rec]+' gezet.');};
+function setupSettings(){
+  seg('slang',S.lang,v=>{S.lang=v;setTimeout(()=>location.href='/?lang='+v,250);});seg('sgfx',S.gfx,v=>S.gfx=v);seg('sfs',S.fs?'1':'0',v=>S.fs=v==='1');seg('sfps',S.fps||0,v=>S.fps=+v);
+  rng('fov','fov',v=>v+'°');rng('vol','vol',pct);rng('veff','vEff',pct);rng('vamb','vAmb',pct);rng('vmus','vMus',pct);rng('rvol','rvol',pct);rng('sens','sens',v=>v.toFixed(2)+'×');
+  sw('smusic','music',()=>{setMusicBtn();S.music?AU.start():AU.stop();});sw('ssfx','sfx');sw('srpc','rpc');sw('sinv','inv');renderKeys();setMusicBtn();}
+$('mus').onclick=()=>{S.music=!S.music;saveS();setMusicBtn();$('smusic').classList.toggle('on',S.music);S.music?AU.start():AU.stop();};
+
+/* ---------- community ---------- */
+async function loadComm(){const d=await api('/api/discord').catch(()=>null);
+  $('dc').innerHTML=d&&d.members?'<div class="big">'+nl(d.members)+'</div><div style="color:var(--dim);margin-bottom:6px">leden</div><div><span class="dot"></span><b>'+nl(d.online)+'</b> nu online</div>':'<div style="color:var(--dim)">Kon Discord nu niet bereiken.</div>';
+  if(d&&d.online){$('onlineBadge').hidden=false;$('onlineBadge').textContent=d.online+' online';$('onlineBadge').style.background='#3ba55d';}
+  const n=await api('/api/news').catch(()=>null);const l=n&&n.latest;$('lastUpd').innerHTML=l&&l.version?'<div class="nv" style="font:900 28px Impact;color:var(--yel)">'+esc(l.version)+'</div><ul style="padding-left:18px;color:var(--txt)">'+splitNotes(l.notes).slice(0,4).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'Niet beschikbaar.';}
+const open=u=>fetch('/api/open?u='+encodeURIComponent(u)).catch(()=>window.open(u));
+$('join').onclick=$('disc').onclick=()=>open('https://discord.gg/GXM3Mb2TNp');$('site').onclick=()=>open('https://rotterdamvii.nl/');
+$('bug').onclick=async()=>{msg('Rapport maken…',0,'bugMsg');const r=await api('/api/bugreport',{method:'POST',body:JSON.stringify({text:$('bugTxt').value})}).catch(()=>null);
+  if(r&&r.ok){msg('✅ "'+r.file+'" staat op je bureaublad. Sleep het in #bug-reports (die is net geopend). Bedankt!',0,'bugMsg');$('bugTxt').value='';}else msg('Dat lukte niet. Meld het zelf in #bug-reports op Discord.',1,'bugMsg');};
+$('quit').onclick=()=>{fetch('/api/quit').finally(()=>window.close());};
+
+/* ---------- updates en spelen ---------- */
 async function pollUpd(){for(let i=0;i<40;i++){const st=await api('/api/status').catch(()=>null);if(!st)return;const u=st.update||{};
-  if(u.state==='bijgewerkt'){$('ver').textContent='LAUNCHER '+st.version+' · SPEL '+st.game+' · ✨ NET BIJGEWERKT';msg('Update geïnstalleerd: versie '+st.game+(u.notes?' – '+u.notes:''));return;}
-  if(u.launcher){msg(u.auto?'Nieuwe versie '+u.launcher+' wordt bijgewerkt, de app start zo vanzelf opnieuw.':'Er is een nieuwe app-versie ('+u.launcher+'). Download hem via liamdej0ng.github.io/rotterdam7');}
-  if(u.state!=='zoeken')return;await new Promise(r=>setTimeout(r,1500));}}
+  $('ver').innerHTML='APP '+esc(st.version)+' · SPEL '+esc(st.game)+(u.state==='bijgewerkt'?'<br><b style="color:var(--yel)">✨ NET BIJGEWERKT</b>':u.state==='zoeken'?'<br>updates zoeken…':'');
+  if(u.state==='bijgewerkt'){whatsNew(st);loadNews();return;}
+  if(u.launcher)msg(u.auto?'Nieuwe versie '+u.launcher+' wordt bijgewerkt, de app start zo vanzelf opnieuw.':'Er is een nieuwe app-versie ('+u.launcher+').');
+  if(u.state!=='zoeken'){whatsNew(st);return;}await new Promise(r=>setTimeout(r,1500));}}
+const TIPS=['Druk op F12 in het spel voor een screenshot.','Spatie tijdens het rijden = handrem: drift door de bochten!','Ga naar huis en slaap om op te slaan.','Met P pak je je telefoon: bestel een taxi of koop een huis.','Met C wissel je tussen Barry en Bella.','Houd Ctrl ingedrukt op een scooter voor een wheelie.'];
 async function play(){
-  if(!sel){if(!P.length){$('pname').value=$('pname').value||'Speler';await add();}if(!sel)return;}const p=P.find(x=>x.name===sel);$('load').classList.add('on');$('ltxt').textContent='Spel laden…';
-  try{const st=await api('/api/status');if(!st.engineCached){$('ltxt').textContent='3D-engine downloaden (alleen de eerste keer)…';const r=await api('/api/prepare');if(!r.ok)throw new Error('engine');}
+  if(!sel){if(!P.length){$('pname').value=$('pname').value||'Speler';await add();}if(!sel)return;}
+  const p=P.find(x=>x.name===sel);AU.stop();$('load').classList.add('on');$('ltxt').textContent='Spel laden…';$('ltip').textContent='💡 '+TIPS[Math.floor(Math.random()*TIPS.length)];
+  try{const st=await api('/api/status');
     if(st.update&&st.update.state==='zoeken'){$('ltxt').textContent='Zoeken naar updates…';for(let i=0;i<20;i++){await new Promise(r=>setTimeout(r,500));const s2=await api('/api/status');if(s2.update.state!=='zoeken')break;}}
     const sv=await fetch('/api/save?user='+encodeURIComponent(sel)).then(r=>r.text());if(sv&&sv!=='null')localStorage.setItem('rotterdam7:'+sel,sv);else localStorage.removeItem('rotterdam7:'+sel);
-    const q=new URLSearchParams({lang:S.lang||'nl',user:sel,char:p?p.char:'barry',gfx:S.gfx,fs:S.fs?'1':'0',vol:S.vol,rvol:S.rvol});location.href='/game?'+q;}
-  catch(e){$('load').classList.remove('on');fetch('/api/log',{method:'POST',body:'starten mislukt: '+(e&&(e.message||e.status))}).catch(()=>{});
-    msg(e&&e.message==='engine'?'De 3D-engine kon niet worden gedownload. De eerste keer is internet nodig; daarna werkt alles offline.':'Starten lukte niet ('+(e&&(e.message||e.status)||'onbekend')+'). Probeer het opnieuw.',1);}
-}
-document.querySelectorAll('.chars button').forEach(b=>b.onclick=()=>{newChar=b.dataset.c;document.querySelectorAll('.chars button').forEach(x=>x.classList.toggle('on',x===b));});
-$('padd').onclick=add;$('pname').onkeydown=e=>{if(e.key==='Enter')add();};$('play').onclick=play;
-$('disc').onclick=()=>fetch('/api/open?u='+encodeURIComponent('https://discord.gg/GXM3Mb2TNp')).catch(()=>window.open('https://discord.gg/GXM3Mb2TNp'));
-$('quit').onclick=()=>{fetch('/api/quit').finally(()=>window.close());};
-addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement!==$('pname')&&sel)play();});
-Promise.all([api('/api/status'),api('/api/settings'),api('/api/profiles')]).then(([st,s,p])=>{$('ver').textContent='LAUNCHER '+st.version+' · SPEL '+st.game+(st.engineCached?' · OFFLINE KLAAR':'');pollUpd();S=Object.assign(S,s);P=p;
-  sel=P.find(x=>x.name===S.last)?S.last:(P[0]?P[0].name:'');
-  seg('slang',S.lang,v=>{S.lang=v;setTimeout(()=>location.href='/?lang='+v,250);});seg('sgfx',S.gfx,v=>S.gfx=v);seg('sfs',S.fs?'1':'0',v=>S.fs=v==='1');$('svol').value=S.vol;$('srvol').value=S.rvol;
-  $('svol').oninput=()=>{S.vol=+$('svol').value;};$('svol').onchange=saveS;$('srvol').oninput=()=>{S.rvol=+$('srvol').value;};$('srvol').onchange=saveS;render();if(!P.length)$('pname').focus();})
- .catch(()=>msg('Launcher kon niet starten.',1));
+    // instellingen voor het spel (zelfde opslag als de game)
+    localStorage.setItem('r7opts',JSON.stringify({fov:S.fov,sens:S.sens,inv:S.inv,fps:S.fps,keys:S.keys}));
+    localStorage.setItem('r7audio',JSON.stringify({effects:S.vEff,ambient:S.vAmb,music:S.vMus}));
+    const q=new URLSearchParams({lang:S.lang||'nl',user:sel,char:p?p.char:'barry',gfx:S.gfx,fs:S.fs?'1':'0',vol:S.vol,rvol:S.rvol});setTimeout(()=>location.href='/game?'+q,350);}
+  catch(e){$('load').classList.remove('on');fetch('/api/log',{method:'POST',body:'starten mislukt: '+(e&&(e.message||e.status))}).catch(()=>{});msg('Starten lukte niet ('+(e&&(e.message||e.status)||'onbekend')+'). Probeer het opnieuw.',1);}}
+$('play').onclick=play;
+addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement!==$('pname')&&document.activeElement!==$('bugTxt')&&sel&&$('t-spelen').classList.contains('on')&&!document.querySelector('.kb.wait'))play();});
+
+Promise.all([api('/api/status'),api('/api/settings'),api('/api/profiles')]).then(([st,s,p])=>{S=Object.assign(S,s);S.keys=S.keys&&typeof S.keys==='object'?S.keys:{};P=p;
+  sel=P.find(x=>x.name===S.last)?S.last:(P[0]?P[0].name:'');setupSettings();render();renderChars();loadNews();loadSys();pollUpd();loadComm();if(!P.length)$('pname').focus();})
+ .catch(e=>msg('Launcher kon niet starten.',1));
 </script></body></html>
