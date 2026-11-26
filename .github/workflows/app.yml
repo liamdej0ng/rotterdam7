@@ -20,6 +20,11 @@ jobs:
       - run: node copy-assets.js
       - run: copy ..\dict.json app\dict.json
         shell: cmd
-      - run: npx electron-builder --win --x64 --publish always
+      - run: npx electron-builder --win --x64 --publish never
+      - name: Release maken
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          V=$(node -p "require('./package.json').version")
+          gh release create "v$V" dist/Rotterdam-VII-Setup-$V.exe dist/Rotterdam-VII-Setup-$V.exe.blockmap dist/latest.yml --title "Rotterdam VII $V" --notes "Discord-status: je ziet nu 'Speelt Rotterdam VII' in Discord." --target "$GITHUB_SHA"
