@@ -1,13 +1,13 @@
 {
- "version": "1.2.0",
+ "version": "1.4.0",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "41bc2baa0bc14569295bb89f03243e615b856343d9a22185faf44c220078e8b4",
- "notes": "Kerstupdate: sneeuw die blijft liggen, gladde wegen, bevroren meer, kerstplein, eigen garage, betere graphics en wegen",
+ "sha256": "548a1c1c2054a08a660c83fd56b188bb4bfa69bca84b3bc858f52483faf1fe05",
+ "notes": "Veel grotere kaart met 6 nieuwe dorpen en een provinciale buitenring, verbindingswegen met viaducten, telefoon met bellen/taxi/internet, gebouwen met functie, villa's met zwembad, hogere beloningen en soepeler",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.0",
  "appUrl": "https://github.com/liamdej0ng/rotterdam7/releases/download/v1.0.0/Rotterdam-VII-Setup-1.0.0.exe",
  "i18n": "https://liamdej0ng.github.io/rotterdam7/dict.json",
- "i18nVersion": "1.2.0",
- "i18nSha256": "db47ed9211bafc24696d77003c3d4cc63112d698ae984436fc9651d06c3677db"
+ "i18nVersion": "1.3.0",
+ "i18nSha256": "55d44ce338f601e4708d55f5df2add0debef626828c701e54daf2dd55f40430b"
 }
