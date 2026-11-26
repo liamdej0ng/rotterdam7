@@ -1,4 +1,4 @@
-// Cloudflare Worker: alleen de Rotterdam VII Discord-bot (de website staat op GitHub Pages).
+// Cloudflare Worker (bouwt automatisch bij elke push): alleen de Rotterdam VII Discord-bot (de website staat op GitHub Pages).
 {
   "name": "rotterdam7",
   "main": "bot/worker.js",
