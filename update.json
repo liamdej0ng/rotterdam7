@@ -1,8 +1,8 @@
 {
- "version": "1.4.0",
+ "version": "1.5.0",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "19781abca69d9f6f13da135cbf5096894813a20dea5eac29d448d484cb1821b1",
- "notes": "Veel grotere kaart met 6 nieuwe dorpen en een provinciale buitenring, verbindingswegen met viaducten, telefoon met bellen/taxi/internet, gebouwen met functie, villa's met zwembad, hogere beloningen en soepeler. Discord-status: je ziet nu 'Speelt Rotterdam VII' in Discord",
+ "sha256": "f2cb15d5a8f9bebe4e4efd7b381b3b81fbbd1a21eb5ff60f2d2d757ef09878e9",
+ "notes": "Nieuwe missie 'Havenfrequentie' met Nova Nul en Rico Radar, mooiere en ronder gevormde personages, scherper beeld op Middel en een rustigere kleurfilter.",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.4",
