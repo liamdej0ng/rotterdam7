@@ -1,8 +1,8 @@
 {
  "version": "1.5.8",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "5d83e487668c5d253443ebb7ac1f90d80639200036ff6a9adb8bb47ee3ea46a5",
- "notes": "Nieuwe launcher met nieuws, personages, prestaties en screenshots. Druk op F12 in het spel voor een screenshot. Nieuwe instellingen: beeldveld (FOV), muisgevoeligheid, FPS-limiet en eigen toetsen. Je statistieken (kilometers, missies, speeltijd, topsnelheid) worden nu bijgehouden.",
+ "sha256": "1248db794e9845e6146c172578f032d6beebc977714297345837ee6011451edf",
+ "notes": "Nieuwe launcher met nieuws, personages, prestaties en screenshots. Druk op F12 in het spel voor een screenshot. Nieuwe instellingen: beeldveld (FOV), muisgevoeligheid, FPS-limiet en eigen toetsen. Je statistieken (kilometers, missies, speeltijd, topsnelheid) worden nu bijgehouden. Opgelost: de tekst op het shirt van Nova Nul stond over elkaar.",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.6",
