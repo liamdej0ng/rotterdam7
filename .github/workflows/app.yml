@@ -27,4 +27,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           V=$(node -p "require('./package.json').version")
-          gh release create "v$V" dist/Rotterdam-VII-Setup-$V.exe dist/Rotterdam-VII-Setup-$V.exe.blockmap dist/latest.yml --title "Rotterdam VII $V" --notes "Discord-status: je ziet nu 'Speelt Rotterdam VII' in Discord." --target "$GITHUB_SHA"
+          F="dist/Rotterdam-VII-Setup-$V.exe dist/Rotterdam-VII-Setup-$V.exe.blockmap dist/latest.yml"
+          if gh release view "v$V" >/dev/null 2>&1; then gh release upload "v$V" $F --clobber; else gh release create "v$V" $F --title "Rotterdam VII $V" --notes "Discord-status: je ziet nu 'Speelt Rotterdam VII' in Discord." --target "$GITHUB_SHA"; fi
