@@ -17,7 +17,12 @@ jobs:
           TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
         run: |
           if [ -z "$TOKEN" ]; then echo "Geen DISCORD_BOT_TOKEN-secret ingesteld."; exit 0; fi
+          # spaties/enters en een eventueel "Bot "-voorvoegsel weghalen
+          T=$(printf '%s' "$TOKEN" | tr -d '[:space:]' | sed 's/^Bot//')
+          echo "Sleutel: ${#T} tekens, $(printf '%s' "$T" | tr -cd '.' | wc -c) punten (een bot-sleutel heeft er 2)"
+          case "$T" in https://*) echo "Dit is een link, geen bot-sleutel. Kopieer de sleutel via Bot > Reset Token."; exit 1;; esac
+          curl -sS -o /dev/null -w "Controle sleutel: HTTP %{http_code}\n" -H "Authorization: Bot $T" https://discord.com/api/v10/users/@me
           curl -sS --fail-with-body -X PUT \
-            -H "Authorization: Bot $TOKEN" -H "Content-Type: application/json" \
+            -H "Authorization: Bot $T" -H "Content-Type: application/json" \
             -d @bot/commands.json \
             https://discord.com/api/v10/applications/1575432127783243929/commands
