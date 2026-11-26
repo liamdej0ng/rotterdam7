@@ -297,7 +297,7 @@ const RPC = {
   retry() { clearTimeout(this.retryT); this.retryT = setTimeout(() => { this.sock = null; this.connect(); }, 5000); },
   tick() {
     if (!this.ready || !this.sock) return;
-    const activity = { timestamps: { start: this.start }, assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/poster.jpg', large_text: 'Rotterdam VII' } };
+    const activity = { timestamps: { start: this.start }, assets: { large_image: 'https://liamdej0ng.github.io/rotterdam7/discord-icon.png', large_text: 'Rotterdam VII' } };
     const key = JSON.stringify(activity); if (key === this.last) return; this.last = key;
     try { this.sock.write(this.frame(1, { cmd: 'SET_ACTIVITY', args: { pid: process.pid, activity }, nonce: String(++this.nonce) })); } catch (e) { this.close(); this.retry(); }
   }
