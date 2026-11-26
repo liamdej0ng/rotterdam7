@@ -1,0 +1,51 @@
+name: Update-nieuws naar Discord
+# Zet automatisch een bericht in #📝・updates zodra er een nieuwe gameversie in update.json staat.
+on:
+  push:
+    branches: [main]
+    paths: ['update.json']
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Bericht sturen
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_UPDATES }}
+          HANDMATIG: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then echo "Geen DISCORD_WEBHOOK_UPDATES-secret ingesteld."; exit 0; fi
+          python3 - <<'PY'
+          import json, os, subprocess, urllib.request
+          nu = json.load(open('update.json'))
+          try:
+              oud = json.loads(subprocess.check_output(['git', 'show', 'HEAD~1:update.json']))
+          except Exception:
+              oud = {}
+          if os.environ.get('HANDMATIG') != 'true' and nu.get('version') == oud.get('version'):
+              print('Gameversie niet veranderd, niks gepost.'); raise SystemExit
+          punten = [p.strip() for p in nu.get('notes', '').replace('. ', '.\n').split('\n') if p.strip()]
+          beschrijving = '\n'.join('• ' + p.rstrip('.') for p in punten)[:3500]
+          bericht = {
+            'username': 'Rotterdam VII Updates',
+            'avatar_url': 'https://liamdej0ng.github.io/rotterdam7/discord-icon.png',
+            'content': '<@&1575498808777908294> Er is een nieuwe update van Rotterdam VII! 🎉',
+            'allowed_mentions': {'roles': ['1575498808777908294']},
+            'embeds': [{
+              'title': f"🎮 Update {nu.get('version')} is uit!",
+              'url': 'https://rotterdamvii.nl/',
+              'color': 0xC8102E,
+              'description': beschrijving + '\n\n🔄 **Hoe krijg je hem?** Sluit de app en open hem opnieuw, de update komt vanzelf binnen.\n⬇️ Nog niet gedownload? [rotterdamvii.nl](https://rotterdamvii.nl/)',
+              'thumbnail': {'url': 'https://liamdej0ng.github.io/rotterdam7/discord-icon.png'},
+              'footer': {'text': 'Made by Liam & Tim'},
+            }],
+          }
+          req = urllib.request.Request(os.environ['WEBHOOK'], data=json.dumps(bericht).encode(),
+                                       headers={'Content-Type': 'application/json', 'User-Agent': 'Rotterdam7-Updates'})
+          urllib.request.urlopen(req)
+          print('Gepost naar Discord:', nu.get('version'))
+          PY
