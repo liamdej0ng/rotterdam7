@@ -1,8 +1,8 @@
 {
- "version": "1.5.6",
+ "version": "1.5.7",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "e92dc7b86c18301483d6f960f94761014aca7cfdad54564f4466b8cee17dc1ba",
- "notes": "Kerstupdate: sneeuw standaard, lichte sneeuw en sneeuwstorm, bevroren meer, kerstverlichting aan straatlantaarns en versierde bomen in stadsparken.",
+ "sha256": "b5df224c6bfdb3681822423b8a8632ffe69d0bf54f1f86ede958b8384fcc9504",
+ "notes": "Prestatieverbetering: dynamische resolutie schaalt mee met de framerate, kerstbomen gebruiken instanced meshes, minder stadslichtjes, sneeuw en nabewerking geoptimaliseerd.",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.5",
