@@ -1,0 +1,11 @@
+// Cloudflare Worker: alleen de Rotterdam VII Discord-bot (de website staat op GitHub Pages).
+{
+  "name": "rotterdam7",
+  "main": "bot/worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "vars": {
+    // Openbare sleutel van de Discord-app "Rotterdam VII" (geen geheim).
+    "PUBLIC_KEY": "9e8787391f15b24b9d30a7e66bddaa78a70114dd8742ec6f997a4d58fc45b153"
+  }
+}
