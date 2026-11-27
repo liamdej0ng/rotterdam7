@@ -49,6 +49,128 @@
    "afbeelding": "media/aerial.jpg"
   },
   {
+   "versie": "1.5.7",
+   "datum": "2026-11-26",
+   "punten": [
+    {
+     "nl": "Minder lag: de resolutie past zich vanzelf aan je framerate aan",
+     "en": "Less lag: the resolution automatically adapts to your frame rate",
+     "de": "Weniger Ruckeln: Die Auflösung passt sich automatisch deiner Framerate an"
+    },
+    {
+     "nl": "Kerstbomen, stadslichtjes, sneeuw en nabewerking zijn een stuk lichter voor je computer",
+     "en": "Christmas trees, city lights, snow and post-processing are much lighter on your computer",
+     "de": "Weihnachtsbäume, Stadtlichter, Schnee und Nachbearbeitung belasten deinen Computer deutlich weniger"
+    }
+   ]
+  },
+  {
+   "versie": "1.5.6",
+   "datum": "2026-11-26",
+   "titel": {
+    "nl": "❄️ Nog meer kerst",
+    "en": "❄️ Even more Christmas",
+    "de": "❄️ Noch mehr Weihnachten"
+   },
+   "punten": [
+    {
+     "nl": "Sneeuw is nu standaard, met lichte sneeuw en echte sneeuwstormen",
+     "en": "Snow is now the default, with light snow and real snowstorms",
+     "de": "Schnee ist jetzt Standard, mit leichtem Schneefall und echten Schneestürmen"
+    },
+    {
+     "nl": "Het meer bevriest helemaal",
+     "en": "The lake freezes over completely",
+     "de": "Der See friert komplett zu"
+    },
+    {
+     "nl": "Kerstverlichting aan de straatlantaarns en versierde bomen in de stadsparken",
+     "en": "Christmas lights on the street lamps and decorated trees in the city parks",
+     "de": "Weihnachtsbeleuchtung an den Straßenlaternen und geschmückte Bäume in den Stadtparks"
+    }
+   ],
+   "afbeelding": "media/nacht.jpg"
+  },
+  {
+   "versie": "1.5.0",
+   "datum": "2026-11-26",
+   "titel": {
+    "nl": "📻 Havenfrequentie",
+    "en": "📻 Harbour Frequency",
+    "de": "📻 Hafenfrequenz"
+   },
+   "punten": [
+    {
+     "nl": "Nieuwe missie Havenfrequentie: help Nova Nul en Rico Radar een mysterieus signaal in de haven te vinden",
+     "en": "New mission Havenfrequentie: help Nova Nul and Rico Radar track down a mysterious signal in the harbour",
+     "de": "Neue Mission Havenfrequentie: Hilf Nova Nul und Rico Radar, ein mysteriöses Signal im Hafen aufzuspüren"
+    },
+    {
+     "nl": "Twee nieuwe personages: piraten-dj Nova Nul en technicus Rico Radar",
+     "en": "Two new characters: pirate DJ Nova Nul and technician Rico Radar",
+     "de": "Zwei neue Charaktere: Piraten-DJ Nova Nul und Techniker Rico Radar"
+    },
+    {
+     "nl": "Mooiere personages met ronder gevormde hoofden, handen en kleding",
+     "en": "Better-looking characters with rounder heads, hands and clothing",
+     "de": "Schönere Charaktere mit runderen Köpfen, Händen und Kleidung"
+    },
+    {
+     "nl": "Scherper beeld op Middel en een rustigere kleurfilter",
+     "en": "Sharper image on Medium and a calmer colour filter",
+     "de": "Schärferes Bild auf Mittel und ein ruhigerer Farbfilter"
+    }
+   ],
+   "afbeelding": "media/brug.jpg"
+  },
+  {
+   "versie": "1.4.0",
+   "datum": "2026-11-26",
+   "titel": {
+    "nl": "🗺️ De stad wordt veel groter",
+    "en": "🗺️ The city gets much bigger",
+    "de": "🗺️ Die Stadt wird viel größer"
+   },
+   "punten": [
+    {
+     "nl": "Veel grotere kaart met 6 nieuwe dorpen en een provinciale buitenring",
+     "en": "A much bigger map with 6 new villages and a provincial ring road",
+     "de": "Eine viel größere Karte mit 6 neuen Dörfern und einer Ringstraße"
+    },
+    {
+     "nl": "Nieuwe verbindingswegen tussen de wijken, met viaducten over de snelweg",
+     "en": "New connecting roads between neighbourhoods, with flyovers across the motorway",
+     "de": "Neue Verbindungsstraßen zwischen den Vierteln, mit Brücken über die Autobahn"
+    },
+    {
+     "nl": "Je telefoon kan nu bellen, een taxi bestellen en internetten: huizen kopen, auto's zoeken en het nieuws lezen",
+     "en": "Your phone can now make calls, order a taxi and browse the web: buy houses, find cars and read the news",
+     "de": "Dein Handy kann jetzt telefonieren, ein Taxi rufen und surfen: Häuser kaufen, Autos suchen und Nachrichten lesen"
+    },
+    {
+     "nl": "Bijna alle gebouwen hebben een functie: bijbaantjes, winkels, een hotel, de bank en de sportschool",
+     "en": "Almost every building has a purpose: side jobs, shops, a hotel, the bank and the gym",
+     "de": "Fast jedes Gebäude hat eine Funktion: Nebenjobs, Läden, ein Hotel, die Bank und das Fitnessstudio"
+    },
+    {
+     "nl": "Villawijk met villa's van meer dan een miljoen, met zwembad, sportschool en bioscoop",
+     "en": "A villa district with villas over a million, complete with pool, gym and cinema",
+     "de": "Ein Villenviertel mit Villen über einer Million, mit Pool, Fitnessraum und Kino"
+    },
+    {
+     "nl": "Hogere beloningen voor missies, handrem-drift op gladde wegen, een nieuwe toeter en de bestuurder stapt uit als je een auto steelt",
+     "en": "Higher mission rewards, handbrake drifting on slippery roads, a new horn, and drivers get out when you steal their car",
+     "de": "Höhere Missionsbelohnungen, Handbremsen-Drift auf glatten Straßen, eine neue Hupe und Fahrer steigen aus, wenn du ihr Auto klaust"
+    },
+    {
+     "nl": "Je ziet nu \"Speelt Rotterdam VII\" in je Discord-status",
+     "en": "You now show \"Playing Rotterdam VII\" in your Discord status",
+     "de": "In deinem Discord-Status steht jetzt „Spielt Rotterdam VII“"
+    }
+   ],
+   "afbeelding": "media/maastoren.jpg"
+  },
+  {
    "versie": "1.2.0",
    "datum": "2026-11-25",
    "titel": {
