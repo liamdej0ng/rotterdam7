@@ -1,8 +1,8 @@
 {
- "version": "1.5.8",
+ "version": "1.5.9",
  "game": "https://liamdej0ng.github.io/rotterdam7/game.html",
- "sha256": "1248db794e9845e6146c172578f032d6beebc977714297345837ee6011451edf",
- "notes": "Nieuwe launcher met nieuws, personages, prestaties en screenshots. Druk op F12 in het spel voor een screenshot. Nieuwe instellingen: beeldveld (FOV), muisgevoeligheid, FPS-limiet en eigen toetsen. Je statistieken (kilometers, missies, speeltijd, topsnelheid) worden nu bijgehouden. Opgelost: de tekst op het shirt van Nova Nul stond over elkaar.",
+ "sha256": "aa8069a85bcbb30cbd023150ce54a800f68c8a19f913143d83096b3095c520b9",
+ "notes": "Opgelost: je kunt niet meer onder een brug terechtkomen, en de camera gaat niet meer door muren, gebouwen, bomen of de grond heen.",
  "launcher": "1.0.3",
  "launcherUrl": "https://liamdej0ng.github.io/rotterdam7/",
  "app": "1.0.6",

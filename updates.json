@@ -2,6 +2,28 @@
  "_uitleg": "Pas dit bestand aan om de updates op de website te veranderen. Zet een nieuwe update bovenaan in 'eerder'. Optioneel: 'volgende' (versie, titel, punten) voor een 'Binnenkort'-kaart. 'afbeelding' = plaatje uit de map media.",
  "eerder": [
   {
+   "versie": "1.5.9",
+   "datum": "2026-11-27",
+   "titel": {
+    "nl": "Bugfixes",
+    "en": "Bug fixes",
+    "de": "Fehlerbehebungen"
+   },
+   "punten": [
+    {
+     "nl": "Je spawnt niet meer onder bruggen",
+     "en": "You no longer spawn under bridges",
+     "de": "Du spawnst nicht mehr unter Brücken"
+    },
+    {
+     "nl": "De camera gaat niet meer door muren, gebouwen, bomen of de grond heen",
+     "en": "The camera no longer clips through walls, buildings, trees or the ground",
+     "de": "Die Kamera geht nicht mehr durch Wände, Gebäude, Bäume oder den Boden"
+    }
+   ],
+   "afbeelding": "media/aerial.jpg"
+  },
+  {
    "versie": "1.5.8",
    "datum": "2026-11-26",
    "titel": {
