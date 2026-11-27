@@ -2,6 +2,53 @@
  "_uitleg": "Pas dit bestand aan om de updates op de website te veranderen. Zet een nieuwe update bovenaan in 'eerder'. Optioneel: 'volgende' (versie, titel, punten) voor een 'Binnenkort'-kaart. 'afbeelding' = plaatje uit de map media.",
  "eerder": [
   {
+   "versie": "1.5.8",
+   "datum": "2026-11-26",
+   "titel": {
+    "nl": "🚀 Nieuwe launcher en screenshots",
+    "en": "🚀 New launcher and screenshots",
+    "de": "🚀 Neuer Launcher und Screenshots"
+   },
+   "punten": [
+    {
+     "nl": "Helemaal nieuwe launcher met tabbladen voor nieuws, personages, prestaties, screenshots, instellingen en community",
+     "en": "Brand-new launcher with tabs for news, characters, achievements, screenshots, settings and community",
+     "de": "Komplett neuer Launcher mit Tabs für News, Charaktere, Erfolge, Screenshots, Einstellungen und Community"
+    },
+    {
+     "nl": "Druk op F12 in het spel voor een screenshot: die komt meteen in de launcher en is met één klik te delen in Discord",
+     "en": "Press F12 in-game to take a screenshot: it shows up in the launcher right away and can be shared to Discord in one click",
+     "de": "Drück F12 im Spiel für einen Screenshot: Er erscheint sofort im Launcher und lässt sich mit einem Klick in Discord teilen"
+    },
+    {
+     "nl": "16 badges en statistieken per speler: gereden kilometers, missies, speeltijd en topsnelheid",
+     "en": "16 badges and stats per player: distance driven, missions, playtime and top speed",
+     "de": "16 Abzeichen und Statistiken pro Spieler: gefahrene Kilometer, Missionen, Spielzeit und Höchstgeschwindigkeit"
+    },
+    {
+     "nl": "Nieuwe instellingen: beeldveld (FOV), muisgevoeligheid, FPS-limiet, eigen toetsen en apart volume voor effecten, omgeving en muziek",
+     "en": "New settings: field of view (FOV), mouse sensitivity, FPS limit, custom key bindings and separate volume for effects, ambience and music",
+     "de": "Neue Einstellungen: Sichtfeld (FOV), Mausempfindlichkeit, FPS-Limit, eigene Tastenbelegung und getrennte Lautstärke für Effekte, Umgebung und Musik"
+    },
+    {
+     "nl": "Alle personages met hun verhaal in de launcher, nu ook Nova Nul en Rico Radar",
+     "en": "All characters with their story in the launcher, now including Nova Nul and Rico Radar",
+     "de": "Alle Charaktere mit ihrer Geschichte im Launcher, jetzt auch Nova Nul und Rico Radar"
+    },
+    {
+     "nl": "Bug melden-knop die je systeeminfo meestuurt, zodat problemen sneller opgelost worden",
+     "en": "Report-a-bug button that includes your system info, so problems get fixed faster",
+     "de": "Bug-melden-Knopf, der deine Systeminfos mitschickt, damit Probleme schneller behoben werden"
+    },
+    {
+     "nl": "Opgelost: de tekst op het shirt van Nova Nul stond over elkaar",
+     "en": "Fixed: the text on Nova Nul's shirt overlapped",
+     "de": "Behoben: Der Text auf Nova Nuls Shirt überlappte"
+    }
+   ],
+   "afbeelding": "media/aerial.jpg"
+  },
+  {
    "versie": "1.2.0",
    "datum": "2026-11-25",
    "titel": {
